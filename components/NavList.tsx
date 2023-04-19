@@ -1,4 +1,4 @@
-import { TimerIcon, EngineIcon, LightBulbIcon } from "@/components/svg/icons";
+import { TimerIcon, EngineIcon, LightBulbIcon } from "@/components/svg";
 import NavButton from "./NavButton";
 
 const NavList = () => {

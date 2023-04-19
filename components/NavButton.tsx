@@ -1,4 +1,4 @@
-import { notoSans } from "@/fonts/fonts";
+import { notoSans } from "@/fonts";
 
 type navButtonProps = {
   title: string;
