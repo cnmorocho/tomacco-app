@@ -1,20 +1,51 @@
 // import {act, renderHook} from "@testing"
 
 import usePomo from "@/hooks/usePomo";
-import { renderHook } from "@testing-library/react";
+import { renderHook, act } from "@testing-library/react";
 
-const MOCK_TIMER_DEFAULT_STATE = {
+const MOCK_POMODORO_DEFAULT_STATE = {
   currentTime: 1500,
   isRunning: false,
 };
 
 describe("usePomo", () => {
-  it("should return a Timer default state", () => {
+  it("should return a instance of Pomodoro with default state", () => {
     const { result } = renderHook(usePomo);
 
-    const { timer } = result.current;
+    expect(result.current.countdown).not.toBeNull();
+    expect(result.current.countdown).toEqual(MOCK_POMODORO_DEFAULT_STATE);
+  });
 
-    expect(timer).not.toBeNull();
-    expect(timer).toEqual(MOCK_TIMER_DEFAULT_STATE);
+  it("should return a function called 'play' that change the value of isRunning to true", () => {
+    const { result } = renderHook(usePomo);
+
+    act(() => {
+      result.current.play();
+    });
+
+    expect(result.current.countdown.isRunning).toBeTruthy();
+  });
+
+  it("should return a function called 'pause' that change the value of isRunning to false", () => {
+    const { result } = renderHook(usePomo);
+
+    act(() => {
+      result.current.pause();
+    });
+
+    expect(result.current.countdown.isRunning).toBeFalsy();
+  });
+
+  it("should return a function called 'stop' that change the value of isRunning to false and currentTime to 1500", () => {
+    {
+      const { result } = renderHook(usePomo);
+
+      act(() => {
+        result.current.stop();
+      });
+
+      expect(result.current.countdown.isRunning).toBeFalsy();
+      expect(result.current.countdown.currentTime).toBe(1500);
+    }
   });
 });
