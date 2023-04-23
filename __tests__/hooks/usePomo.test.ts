@@ -6,6 +6,8 @@ import { renderHook, act } from "@testing-library/react";
 const MOCK_POMODORO_DEFAULT_STATE = {
   currentTime: 1500,
   isRunning: false,
+  currentInteval: 0,
+  goalInterval: 4,
 };
 
 describe("usePomo", () => {
