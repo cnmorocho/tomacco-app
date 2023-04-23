@@ -6,7 +6,7 @@ import CountdownButton from "./CountdownButton";
 
 const TimerApp = () => {
   const { countdown, play, stop, pause } = usePomo();
-  const { currentTime } = countdown;
+  const { currentTime, currentInteval, goalInterval } = countdown;
 
   const formatCountdown = (seconds: number) => {
     const $minutes = Math.trunc(seconds / 60);
@@ -22,7 +22,12 @@ const TimerApp = () => {
 
   return (
     <div className="sm:w-[466] flex flex-col items-center gap-20">
-      <Countdown minutes={minutes} seconds={seconds} />
+      <Countdown
+        minutes={minutes}
+        seconds={seconds}
+        currentInterval={currentInteval}
+        goalInterval={goalInterval}
+      />
       <div className="w-full flex place-content-between">
         <CountdownButton action={play} icon={<PlayIcon size="63" />} />
         <CountdownButton action={pause} icon={<PauseIcon size="63" />} />
