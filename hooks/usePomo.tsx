@@ -23,7 +23,7 @@ const usePomo = (seconds: number = 1500) => {
     setCountdown({ ...countdown, isRunning: false, currentTime: seconds });
   };
 
-  const nextInteval = (): void => {
+  const nextInterval = (): void => {
     setCountdown({
       ...countdown,
       currentTime: seconds,
@@ -44,7 +44,7 @@ const usePomo = (seconds: number = 1500) => {
         setCountdown({ ...countdown, isRunning: false });
         return () => clearInterval(interval);
       } else if (intervalIsDone()) {
-        nextInteval();
+        nextInterval();
         return;
       }
       setCountdown({ ...countdown, currentTime: currentTime - 1 });
