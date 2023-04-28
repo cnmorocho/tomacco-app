@@ -6,10 +6,12 @@ const usePomo = (seconds: number = 1500) => {
     currentTime: seconds,
     isRunning: false,
     currentInteval: 0,
+    status: "focus",
     goalInterval: 4,
   });
 
-  const { currentTime, isRunning, currentInteval, goalInterval } = countdown;
+  const { currentTime, isRunning, currentInteval, goalInterval, status } =
+    countdown;
 
   const play = (): void => {
     setCountdown({ ...countdown, isRunning: true });
@@ -23,18 +25,33 @@ const usePomo = (seconds: number = 1500) => {
     setCountdown({ ...countdown, isRunning: false, currentTime: seconds });
   };
 
-  const nextInterval = (): void => {
+  const takeBreak = () => {
     setCountdown({
       ...countdown,
-      currentTime: seconds,
+      currentTime: 300,
       currentInteval: currentInteval + 1,
+      status: "shortbreak",
     });
   };
 
-  const intervalIsDone = () => currentTime === 0;
+  const startFocus = () => {
+    setCountdown({
+      ...countdown,
+      currentTime: seconds,
+      status: "focus",
+    });
+  };
 
-  const sessionIsDone = () =>
-    currentInteval === goalInterval && intervalIsDone();
+  const statusIsDone = ($status: "focus" | "shortbreak"): boolean =>
+    timeIsZero() && status === $status;
+
+  const focusIsDone = (): boolean => statusIsDone("focus");
+
+  const breakIsDone = (): boolean => statusIsDone("shortbreak");
+
+  const timeIsZero = () => currentTime === 0;
+
+  const sessionIsDone = () => currentInteval === goalInterval && timeIsZero();
 
   useEffect(() => {
     if (!isRunning) return;
@@ -43,10 +60,18 @@ const usePomo = (seconds: number = 1500) => {
       if (sessionIsDone()) {
         setCountdown({ ...countdown, isRunning: false });
         return () => clearInterval(interval);
-      } else if (intervalIsDone()) {
-        nextInterval();
+      }
+
+      if (focusIsDone()) {
+        takeBreak();
         return;
       }
+
+      if (breakIsDone()) {
+        startFocus();
+        return;
+      }
+
       setCountdown({ ...countdown, currentTime: currentTime - 1 });
     }, 1000);
 
