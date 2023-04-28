@@ -25,7 +25,7 @@ const usePomo = (seconds: number = 1500) => {
     setCountdown({ ...countdown, isRunning: false, currentTime: seconds });
   };
 
-  const takeBreak = () => {
+  const takeBreak = (): void => {
     setCountdown({
       ...countdown,
       currentTime: 300,
@@ -34,7 +34,7 @@ const usePomo = (seconds: number = 1500) => {
     });
   };
 
-  const startFocus = () => {
+  const startFocus = (): void => {
     setCountdown({
       ...countdown,
       currentTime: seconds,
@@ -49,9 +49,10 @@ const usePomo = (seconds: number = 1500) => {
 
   const breakIsDone = (): boolean => statusIsDone("shortbreak");
 
-  const timeIsZero = () => currentTime === 0;
+  const timeIsZero = (): boolean => currentTime === 0;
 
-  const sessionIsDone = () => currentInteval === goalInterval && timeIsZero();
+  const sessionIsDone = (): boolean =>
+    currentInteval === goalInterval && timeIsZero();
 
   useEffect(() => {
     if (!isRunning) return;
