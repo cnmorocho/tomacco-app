@@ -25,7 +25,6 @@ const usePomo = (seconds: number = 1500) => {
     setCountdown({ ...countdown, isRunning: false, currentTime: seconds });
   };
 
-<<<<<<< HEAD
   const skip = (): void => {
     if (status === "focus")
       setCountdown({
@@ -45,9 +44,6 @@ const usePomo = (seconds: number = 1500) => {
   };
 
   const takeBreak = () => {
-=======
-  const takeBreak = (): void => {
->>>>>>> 35c9e108e9fdc62a59cb89e984620c541367ca36
     setCountdown({
       ...countdown,
       currentTime: 300,
