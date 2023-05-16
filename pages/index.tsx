@@ -1,9 +1,14 @@
-import TimerApp from "@/components/TimerApp";
+import InfoSection from "@/components/InfoSection";
+import Navbar from "@/components/Navbar";
+import TimerSection from "@/components/TimerSection.tsx";
+import TimerApp from "@/components/TimerSection.tsx";
 
 export default function Home() {
   return (
-    <main className="h-screen bg-tomato-red w-full flex flex-col items-center">
-      <TimerApp />
+    <main>
+      <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
+        <TimerSection />
+      </div>
     </main>
   );
 }

@@ -1,5 +1,7 @@
-import { numans } from "@/fonts";
+import { quantico } from "@/fonts";
 import React from "react";
+import styles from "./countdown.module.css";
+
 type CountdownProps = {
   minutes: string;
   seconds: string;
@@ -14,11 +16,11 @@ const Countdown = ({
   goalInterval,
 }: CountdownProps) => {
   return (
-    <div className="w-96 h-96 rounded-full border-8 flex flex-col justify-center items-center">
-      <p className={`${numans.className} text-2xl`}>
-        {currentInterval}/{goalInterval}
+    <div className={styles["container"]}>
+      <p className={`${quantico.className} ${styles["interval"]}`}>
+        #{currentInterval}
       </p>
-      <p className={`${numans.className} text-8xl`}>
+      <p className={`${quantico.className} ${styles["countdown"]}`}>
         {minutes}:{seconds}
       </p>
     </div>

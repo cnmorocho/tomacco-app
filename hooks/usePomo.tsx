@@ -25,6 +25,24 @@ const usePomo = (seconds: number = 1500) => {
     setCountdown({ ...countdown, isRunning: false, currentTime: seconds });
   };
 
+  const skip = (): void => {
+    if (status === "focus")
+      setCountdown({
+        ...countdown,
+        isRunning: false,
+        currentInteval: currentInteval + 1,
+        currentTime: 300,
+        status: "shortbreak",
+      });
+    else
+      setCountdown({
+        ...countdown,
+        isRunning: false,
+        currentTime: seconds,
+        status: "focus",
+      });
+  };
+
   const takeBreak = () => {
     setCountdown({
       ...countdown,
@@ -57,10 +75,10 @@ const usePomo = (seconds: number = 1500) => {
     if (!isRunning) return;
 
     const interval = setInterval(() => {
-      if (sessionIsDone()) {
-        setCountdown({ ...countdown, isRunning: false });
-        return () => clearInterval(interval);
-      }
+      // if (sessionIsDone()) {
+      //   setCountdown({ ...countdown, isRunning: false });
+      //   return () => clearInterval(interval);
+      // }
 
       if (focusIsDone()) {
         takeBreak();
@@ -78,7 +96,7 @@ const usePomo = (seconds: number = 1500) => {
     return () => clearInterval(interval);
   }, [currentTime, isRunning]);
 
-  return { countdown, play, pause, stop };
+  return { countdown, play, pause, stop, skip };
 };
 
 export default usePomo;
