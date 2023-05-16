@@ -7,7 +7,8 @@ import SkipButton from "../SkipButton";
 
 const TimerSection = () => {
   const { countdown, play, stop, pause, skip } = usePomo();
-  const { currentTime, currentInteval, goalInterval, isRunning } = countdown;
+  const { currentTime, currentInteval, goalInterval, isRunning, status } =
+    countdown;
 
   const formatCountdown = (seconds: number) => {
     const $minutes = Math.trunc(seconds / 60);
@@ -30,7 +31,10 @@ const TimerSection = () => {
   const [minutes, seconds] = formatCountdown(currentTime);
 
   return (
-    <section className={styles["section"]}>
+    <section
+      className={`${styles["section"]} ${
+        status === "shortbreak" ? styles["bg-green"] : styles["bg-tomato"]
+      }`}>
       <Countdown
         minutes={minutes}
         seconds={seconds}

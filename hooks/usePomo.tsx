@@ -76,11 +76,6 @@ const usePomo = (seconds: number = 1500) => {
     if (!isRunning) return;
 
     const interval = setInterval(() => {
-      // if (sessionIsDone()) {
-      //   setCountdown({ ...countdown, isRunning: false });
-      //   return () => clearInterval(interval);
-      // }
-
       if (focusIsDone()) {
         takeBreak();
         return;
