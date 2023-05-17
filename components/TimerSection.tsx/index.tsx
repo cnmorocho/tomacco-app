@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import usePomo from "@/hooks/usePomo";
 import Countdown from "../Countdown";
 import styles from "./timer-section.module.css";
@@ -19,6 +19,18 @@ const TimerSection = () => {
       $seconds > 9 ? `${$seconds}` : `0${$seconds}`,
     ];
   };
+
+  useEffect(() => {
+    if (Notification.permission === "granted") return;
+    else
+      Notification.requestPermission().then((res) => {
+        if (res === "granted") {
+          new Notification("Notificación");
+        } else if (res === "default") {
+          console.log("Notificación no permitida");
+        }
+      });
+  }, []);
 
   const ConditionalButton = (): JSX.Element => {
     return isRunning ? (

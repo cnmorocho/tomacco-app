@@ -77,11 +77,13 @@ const usePomo = (seconds: number = 1500) => {
 
     const interval = setInterval(() => {
       if (focusIsDone()) {
+        new Notification("¡Buen trabajo! Tomaté un descansito 😄");
         takeBreak();
         return;
       }
 
       if (breakIsDone()) {
+        new Notification("¿Ya estas fresco?🚿 Momento de laburar 🫡");
         startFocus();
         return;
       }
