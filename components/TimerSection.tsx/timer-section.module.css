@@ -21,8 +21,10 @@
 
 .bg-green {
   background-color: #5AA469;
+  transition: background-color .7s;
 }
 
 .bg-tomato {
   background-color: #DD4A48;
+  transition: background-color .7s;
 }
