@@ -69,21 +69,22 @@ const usePomo = (seconds: number = 1500) => {
 
   const timeIsZero = (): boolean => currentTime === 0;
 
-  const sessionIsDone = (): boolean =>
-    currentInteval === goalInterval && timeIsZero();
-
   useEffect(() => {
     if (!isRunning) return;
 
     const interval = setInterval(() => {
       if (focusIsDone()) {
-        new Notification("¡Buen trabajo! Tomaté un descansito 😄");
+        new Notification("¡Buen trabajo!", {
+          body: "Tomaté un descansito 🍅",
+        });
         takeBreak();
         return;
       }
 
       if (breakIsDone()) {
-        new Notification("¿Ya estas fresco?🚿 Momento de laburar 🫡");
+        new Notification("¿Ya estas fresco?", {
+          body: "¡Momento de laburar! 🤓",
+        });
         startFocus();
         return;
       }

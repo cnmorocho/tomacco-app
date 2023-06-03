@@ -23,13 +23,13 @@ const TimerSection = () => {
   useEffect(() => {
     if (Notification.permission === "granted") return;
     else
-      Notification.requestPermission().then((res) => {
-        if (res === "granted") {
-          new Notification("Notificación");
-        } else if (res === "default") {
-          console.log("Notificación no permitida");
-        }
-      });
+      Notification.requestPermission().then(
+        (res) =>
+          res === "granted" &&
+          new Notification("Hola, humano productivo", {
+            body: "Desde ahora te notificaré por acá",
+          })
+      );
   }, []);
 
   const ConditionalButton = (): JSX.Element => {
