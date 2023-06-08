@@ -1,4 +1,4 @@
-import { BurgerIcon, EngineIcon, LightBulbIcon, TimerIcon } from "@/common/svg";
+import { BurgerIcon, EngineIcon, LightBulbIcon, TimerIcon } from "@/components/common/svg";
 import React, { useState } from "react";
 import styles from "./nav-items.module.css";
 import { roboto } from "@/fonts";

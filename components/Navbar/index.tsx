@@ -1,5 +1,5 @@
 import React from "react";
-import { EngineIcon, LightBulbIcon, TimerIcon } from "../../common/svg";
+import { EngineIcon, LightBulbIcon, TimerIcon } from "../common/svg";
 import NavItems from "../NavItems";
 import styles from "./navbar.module.css";
 import { roboto } from "@/fonts";

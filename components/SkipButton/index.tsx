@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./skip-button.module.css";
-import { SkipIcon } from "@/common/svg";
+import { SkipIcon } from "@/components/common/svg";
 
 type SkipButtonProps = {
   action: () => void;
