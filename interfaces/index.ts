@@ -3,5 +3,4 @@ export interface Pomodoro {
   isRunning: boolean;
   currentInteval: number;
   status: "focus" | "shortbreak";
-  goalInterval: number;
 }
