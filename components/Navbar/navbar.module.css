@@ -5,6 +5,8 @@
   flex-direction: row;
   justify-content: center;
   height: 50px;
+  position: fixed;
+  z-index: 5;
 }
 
 .wrapper {
