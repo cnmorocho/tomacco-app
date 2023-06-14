@@ -3,7 +3,7 @@ import TimerSection from '@/components/TimerSection.tsx';
 
 export default function Home() {
     return (
-        <DesktopWrapper>
+        <DesktopWrapper title='Tomacco'>
             <TimerSection />
         </DesktopWrapper>
     );
