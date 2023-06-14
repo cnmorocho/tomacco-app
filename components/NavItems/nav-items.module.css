@@ -22,6 +22,10 @@
   text-decoration: none;
 }
 
+.nav-item:hover {
+  cursor: pointer;
+}
+
 .wrapper-inactive {
   display: none;
 }
