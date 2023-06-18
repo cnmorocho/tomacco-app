@@ -1,30 +1,30 @@
 .section {
-  position: relative;
-  top: 0;
-  height: 100vh;
-  background-color: #DD4A48;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+    position: relative;
+    top: 0;
+    height: 100vh;
+    background-color: #b31312;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .buttons {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  width: 100%;
-  justify-content: center;
-  padding-left: 30px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    justify-content: center;
+    padding-left: 30px;
 }
 
 .bg-green {
-  background-color: #5AA469;
-  transition: background-color .7s;
+    background-color: #5aa469;
+    transition: background-color 0.7s;
 }
 
 .bg-tomato {
-  background-color: #DD4A48;
-  transition: background-color .7s;
+    background-color: #b31312;
+    transition: background-color 0.7s;
 }
