@@ -1,5 +1,6 @@
 import { Pomodoro } from '@/interfaces';
-import { useEffect, useState } from 'react';
+import { ThemeContext } from '@/store/theme';
+import { useContext, useEffect, useState } from 'react';
 
 const usePomo = (seconds: number = 1500) => {
     const [countdown, setCountdown] = useState<Pomodoro>({
@@ -9,7 +10,14 @@ const usePomo = (seconds: number = 1500) => {
         status: 'focus',
     });
 
+    const { setTheme } = useContext(ThemeContext);
+
     const { currentTime, isRunning, currentInteval, status } = countdown;
+
+    useEffect(() => {
+        if (status === 'focus') setTheme('tomato');
+        else if (status === 'shortbreak') setTheme('green-apple');
+    }, [status]);
 
     const play = (): void => {
         setCountdown({ ...countdown, isRunning: true });
@@ -58,8 +66,7 @@ const usePomo = (seconds: number = 1500) => {
         });
     };
 
-    const statusIsDone = ($status: 'focus' | 'shortbreak'): boolean =>
-        timeIsZero() && status === $status;
+    const statusIsDone = ($status: 'focus' | 'shortbreak'): boolean => timeIsZero() && status === $status;
 
     const focusIsDone = (): boolean => statusIsDone('focus');
 
