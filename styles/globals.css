@@ -1,5 +1,26 @@
+:root {
+    --color-tomato: #b31312;
+    --color-sky-blue: #1d5d9b;
+    --color-green-apple: #42855b;
+}
+
+.green-apple {
+    background-color: var(--color-green-apple);
+    transition: background-color 0.7s;
+}
+
+.tomato {
+    background-color: var(--color-tomato);
+    transition: background-color 0.7s;
+}
+
+.sky-blue {
+    background-color: var(--color-sky-blue);
+    transition: background-color 0.7s;
+}
+
 * {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
 }
