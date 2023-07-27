@@ -10,7 +10,7 @@ const Navbar = () => {
     return (
         <div className={`${styles.container} ${theme}`}>
             <div className={styles.wrapper}>
-                <h1 className={`${styles.title} ${roboto.className}`}>Pomodoro</h1>
+                <h1 className={`${styles.title} ${roboto.className}`}>Tomacco</h1>
                 <NavItems />
             </div>
         </div>
