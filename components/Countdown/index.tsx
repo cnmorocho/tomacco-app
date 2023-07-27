@@ -1,4 +1,4 @@
-import { quantico } from '@/fonts';
+import { roboto } from '@/fonts';
 import React from 'react';
 import styles from './countdown.module.css';
 
@@ -11,10 +11,8 @@ type CountdownProps = {
 const Countdown = ({ minutes, seconds, currentInterval }: CountdownProps) => {
     return (
         <div className={styles['container']}>
-            <p className={`${quantico.className} ${styles['interval']}`}>
-                #{currentInterval}
-            </p>
-            <p className={`${quantico.className} ${styles['countdown']}`}>
+            <p className={`${roboto.className} ${styles['interval']}`}>#{currentInterval}</p>
+            <p className={`${roboto.className} ${styles['countdown']}`}>
                 {minutes}:{seconds}
             </p>
         </div>
