@@ -1,11 +1,11 @@
-import ThemeProvider from '@/store/theme';
+import PomodoroContextProvider from '@/store/countdown';
 import '@/styles/globals.css';
 import type { AppProps } from 'next/app';
 
 export default function App({ Component, pageProps }: AppProps) {
     return (
-        <ThemeProvider>
+        <PomodoroContextProvider>
             <Component {...pageProps} />
-        </ThemeProvider>
+        </PomodoroContextProvider>
     );
 }

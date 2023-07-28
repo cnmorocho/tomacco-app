@@ -2,13 +2,13 @@ import React, { useContext } from 'react';
 import NavItems from '../NavItems';
 import styles from './navbar.module.css';
 import { roboto } from '@/fonts';
-import { ThemeContext } from '@/store/theme';
+import { PomodoroContext } from '@/store/countdown';
 
 const Navbar = () => {
-    const { theme } = useContext(ThemeContext);
+    const { pomodoro } = useContext(PomodoroContext);
 
     return (
-        <div className={`${styles.container} ${theme}`}>
+        <div className={`${styles.container} ${pomodoro.status}`}>
             <div className={styles.wrapper}>
                 <h1 className={`${styles.title} ${roboto.className}`}>Tomacco</h1>
                 <NavItems />

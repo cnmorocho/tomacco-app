@@ -4,12 +4,12 @@
     --color-green-apple: #42855b;
 }
 
-.green-apple {
+.shortbreak {
     background-color: var(--color-green-apple);
     transition: background-color 0.7s;
 }
 
-.tomato {
+.focus {
     background-color: var(--color-tomato);
     transition: background-color 0.7s;
 }

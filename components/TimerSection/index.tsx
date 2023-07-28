@@ -1,16 +1,14 @@
 import React, { useContext, useEffect } from 'react';
-import usePomo from '@/hooks/usePomo';
 import Countdown from '../Countdown';
 import styles from './timer-section.module.css';
 import CountdownButton from '../CountdownButton';
 import SkipButton from '../SkipButton';
 import { formatCountdown } from '@/utils/functions';
-import { ThemeContext } from '@/store/theme';
+import { PomodoroContext } from '@/store/countdown';
 
 const TimerSection = () => {
-    const { countdown, play, pause, skip } = usePomo();
-    const { currentTime, currentInteval, isRunning, status } = countdown;
-    const { theme } = useContext(ThemeContext);
+    const { pomodoro, dispatch } = useContext(PomodoroContext);
+    const { currentTime, currentInteval, isRunning, status } = pomodoro;
 
     useEffect(() => {
         if (Notification.permission === 'granted') return;
@@ -28,12 +26,12 @@ const TimerSection = () => {
         return isRunning ? (
             <CountdownButton
                 text='PAUSAR'
-                action={pause}
+                action={() => dispatch({ type: 'pause' })}
             />
         ) : (
             <CountdownButton
                 text='INICIAR'
-                action={play}
+                action={() => dispatch({ type: 'play' })}
             />
         );
     };
@@ -41,7 +39,7 @@ const TimerSection = () => {
     const [minutes, seconds] = formatCountdown(currentTime);
 
     return (
-        <section className={`${styles.section} ${theme}`}>
+        <section className={`${styles.section} ${status}`}>
             <Countdown
                 minutes={minutes}
                 seconds={seconds}
@@ -49,7 +47,7 @@ const TimerSection = () => {
             />
             <div className={styles['buttons']}>
                 <ConditionalButton />
-                <SkipButton action={skip} />
+                <SkipButton action={() => dispatch({ type: 'skip' })} />
             </div>
         </section>
     );
