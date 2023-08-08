@@ -11,7 +11,7 @@ const CountdownButton = ({ text, action }: CountdownButtonProps) => {
     return (
         <button
             type='button'
-            className={`${styles['button']} ${roboto.className}`}
+            className={`${styles.button} ${roboto.className}`}
             onClick={action}>
             {text}
         </button>

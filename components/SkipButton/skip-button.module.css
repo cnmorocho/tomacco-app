@@ -1,4 +1,5 @@
 .button {
-  background-color: #12313300;
-  border: 0;
+    background-color: #12313300;
+    border: 0;
+    cursor: pointer;
 }
