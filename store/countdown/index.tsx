@@ -7,7 +7,7 @@ import { createNotification } from '@/utils/functions';
 const initialPomodoroState: Pomodoro = {
     isRunning: false,
     status: 'focus',
-    currentInteval: 0,
+    currentInterval: 0,
     currentTime: 1500,
 };
 
@@ -21,16 +21,18 @@ export const PomodoroContext = createContext<PomodoroContextType>(defaultValue);
 const PomodoroContextProvider = ({ children }: PomodoroContextProviderType) => {
     const [pomodoro, dispatch] = useReducer(reducer, initialPomodoroState);
 
-    const isStatusDone = ($status: 'focus' | 'shortbreak'): boolean => isTimeZero() && pomodoro.status === $status;
+    const { isRunning, currentTime, status } = pomodoro;
+
+    const isStatusDone = ($status: 'focus' | 'shortbreak'): boolean => isTimeZero() && status === $status;
 
     const isFocusDone = (): boolean => isStatusDone('focus');
 
     const isBreakDone = (): boolean => isStatusDone('shortbreak');
 
-    const isTimeZero = (): boolean => pomodoro.currentTime === 0;
+    const isTimeZero = (): boolean => currentTime === 0;
 
     useEffect(() => {
-        if (!pomodoro.isRunning) return;
+        if (!isRunning) return;
 
         const interval = setInterval(() => {
             if (isFocusDone()) {
@@ -49,7 +51,7 @@ const PomodoroContextProvider = ({ children }: PomodoroContextProviderType) => {
         }, 1000);
 
         return () => clearInterval(interval);
-    }, [pomodoro.currentTime, pomodoro.isRunning]);
+    }, [currentTime, isRunning]);
 
     return <PomodoroContext.Provider value={{ pomodoro, dispatch }}>{children}</PomodoroContext.Provider>;
 };

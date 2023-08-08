@@ -8,7 +8,7 @@ import { PomodoroContext } from '@/store/countdown';
 
 const TimerSection = () => {
     const { pomodoro, dispatch } = useContext(PomodoroContext);
-    const { currentTime, currentInteval, isRunning, status } = pomodoro;
+    const { currentTime, currentInterval, isRunning, status } = pomodoro;
 
     useEffect(() => {
         if (Notification.permission === 'granted') return;
@@ -43,7 +43,7 @@ const TimerSection = () => {
             <Countdown
                 minutes={minutes}
                 seconds={seconds}
-                currentInterval={currentInteval}
+                currentInterval={currentInterval}
             />
             <div className={styles['buttons']}>
                 <ConditionalButton />
