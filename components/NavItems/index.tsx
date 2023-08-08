@@ -1,24 +1,18 @@
-import {
-    BurgerIcon,
-    EngineIcon,
-    LightBulbIcon,
-    TimerIcon,
-} from '@/components/common/svg';
-import React, { useState } from 'react';
+import { BurgerIcon, EngineIcon, LightBulbIcon, TimerIcon } from '@/components/common/svg';
+import React, { useContext, useState } from 'react';
 import styles from './nav-items.module.css';
 import { roboto } from '@/fonts';
 import { useRouter } from 'next/router';
+import { PomodoroContext } from '@/store/countdown';
 
 const NavItems = () => {
     const [showItems, setShowItems] = useState(false);
     const { push } = useRouter();
+    const { pomodoro } = useContext(PomodoroContext);
 
     return (
         <div className={`${styles['container']} ${roboto.className}`}>
-            <div
-                className={`${styles['wrapper']} ${
-                    showItems ? styles['wrapper-inactive'] : ''
-                }`}>
+            <div className={`${pomodoro.status} ${styles['wrapper']} ${showItems ? styles['wrapper-inactive'] : ''}`}>
                 <a
                     onClick={() => push('/home')}
                     className={styles['nav-item']}>

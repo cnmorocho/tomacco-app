@@ -1,6 +1,6 @@
 export interface Pomodoro {
-  currentTime: number;
-  isRunning: boolean;
-  currentInteval: number;
-  status: "focus" | "shortbreak";
+    currentTime: number;
+    isRunning: boolean;
+    currentInterval: number;
+    status: string;
 }
