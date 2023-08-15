@@ -39,15 +39,14 @@ const reducer = (state: Pomodoro, action: ActionType) => {
             return {
                 ...state,
                 currentTime: 300,
-                currentInteval: state.currentInterval + 1,
+                currentInterval: state.currentInterval + 1,
                 status: 'shortbreak',
             };
         case 'start-focus':
             return {
                 ...state,
-                isRunning: false,
                 currentTime: 1500,
-                currentInteval: state.currentInterval + 1,
+                currentInterval: state.currentInterval + 1,
                 status: 'focus',
             };
         case 'countdown':
