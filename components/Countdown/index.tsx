@@ -12,10 +12,14 @@ type CountdownProps = {
 const Countdown = ({ minutes, seconds, currentInterval }: CountdownProps) => {
     const { dispatch } = useContext(PomodoroContext);
 
+    const resetCountdown = (): void => {
+        if (confirm('¿Esta seguro que desea reiniciar el pomodoro?')) dispatch({ type: 'reset' });
+    };
+
     return (
         <div className={styles['container']}>
             <p
-                onClick={() => dispatch({ type: 'reset' })}
+                onClick={resetCountdown}
                 className={`${roboto.className} ${styles.interval}`}>
                 #{currentInterval}
             </p>
