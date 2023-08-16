@@ -9,19 +9,26 @@ const reducer = (state: Pomodoro, action: ActionType) => {
         case 'pause':
             return { ...state, isRunning: false };
         case 'skip': {
+            if (state.status === 'focus' && state.currentInterval % 4 === 0)
+                return {
+                    ...state,
+                    isRunning: false,
+                    currentTime: 900,
+                    status: 'longbreak',
+                };
             if (state.status === 'focus')
                 return {
                     ...state,
                     isRunning: false,
                     currentTime: 300,
-                    currentInterval: state.currentInterval + 1,
                     status: 'shortbreak',
                 };
-            else if (state.status === 'shortbreak')
+            else if (state.status === 'shortbreak' || state.status === 'longbreak')
                 return {
                     ...state,
                     isRunning: false,
                     currentTime: 1500,
+                    currentInterval: state.currentInterval + 1,
                     status: 'focus',
                 };
             else return state;
@@ -30,16 +37,16 @@ const reducer = (state: Pomodoro, action: ActionType) => {
             return {
                 ...state,
                 currentTime: 1500,
-                currentInterval: 0,
+                currentInterval: 1,
                 status: 'focus',
                 isRunning: false,
             };
         }
-        case 'take-break':
+        case 'start-shortbreak':
             return {
                 ...state,
                 currentTime: 300,
-                currentInterval: state.currentInterval + 1,
+                currentInterval: state.currentInterval,
                 status: 'shortbreak',
             };
         case 'start-focus':
@@ -48,6 +55,13 @@ const reducer = (state: Pomodoro, action: ActionType) => {
                 currentTime: 1500,
                 currentInterval: state.currentInterval + 1,
                 status: 'focus',
+            };
+        case 'start-longbreak':
+            return {
+                ...state,
+                currentTime: 900,
+                currentInterval: state.currentInterval,
+                status: 'longbreak',
             };
         case 'countdown':
             return { ...state, currentTime: state.currentTime - 1 };

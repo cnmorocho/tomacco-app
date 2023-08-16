@@ -7,7 +7,7 @@ import { createNotification } from '@/utils/functions';
 const initialPomodoroState: Pomodoro = {
     isRunning: false,
     status: 'focus',
-    currentInterval: 0,
+    currentInterval: 1,
     currentTime: 1500,
 };
 
@@ -21,13 +21,15 @@ export const PomodoroContext = createContext<PomodoroContextType>(defaultValue);
 const PomodoroContextProvider = ({ children }: PomodoroContextProviderType) => {
     const [pomodoro, dispatch] = useReducer(reducer, initialPomodoroState);
 
-    const { isRunning, currentTime, status } = pomodoro;
+    const { isRunning, currentTime, status, currentInterval } = pomodoro;
 
-    const isStatusDone = ($status: 'focus' | 'shortbreak'): boolean => isTimeZero() && status === $status;
+    const isStatusDone = ($status: 'focus' | 'shortbreak' | 'longbreak'): boolean => isTimeZero() && status === $status;
 
-    const isFocusDone = (): boolean => isStatusDone('focus');
+    const isTimeForBreak = (): boolean => isStatusDone('focus');
 
-    const isBreakDone = (): boolean => isStatusDone('shortbreak');
+    const isTimeForFocus = (): boolean => isStatusDone('shortbreak') || isStatusDone('longbreak');
+
+    const isTimeToLongBreak = (): boolean => isTimeForBreak() && currentInterval % 4 === 0;
 
     const isTimeZero = (): boolean => currentTime === 0;
 
@@ -35,13 +37,19 @@ const PomodoroContextProvider = ({ children }: PomodoroContextProviderType) => {
         if (!isRunning) return;
 
         const interval = setInterval(() => {
-            if (isFocusDone()) {
-                createNotification('¡Buen trabajo!', 'Tomaté un descansito 🍅');
-                dispatch({ type: 'take-break' });
+            if (isTimeToLongBreak()) {
+                createNotification('¡Increible trabajo!', 'Anda a comer una fruta 🍅');
+                dispatch({ type: 'start-longbreak' });
                 return;
             }
 
-            if (isBreakDone()) {
+            if (isTimeForBreak()) {
+                createNotification('¡Buen trabajo!', 'Tomaté un descansito 🍅');
+                dispatch({ type: 'start-shortbreak' });
+                return;
+            }
+
+            if (isTimeForFocus()) {
                 createNotification('¿Ya estas fresco?', '¡Momento de laburar! 🤓');
                 dispatch({ type: 'start-focus' });
                 return;
