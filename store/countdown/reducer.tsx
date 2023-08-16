@@ -9,6 +9,13 @@ const reducer = (state: Pomodoro, action: ActionType) => {
         case 'pause':
             return { ...state, isRunning: false };
         case 'skip': {
+            if (state.status === 'focus' && state.currentInterval % 4 === 0)
+                return {
+                    ...state,
+                    isRunning: false,
+                    currentTime: 900,
+                    status: 'longbreak',
+                };
             if (state.status === 'focus')
                 return {
                     ...state,
@@ -16,7 +23,7 @@ const reducer = (state: Pomodoro, action: ActionType) => {
                     currentTime: 300,
                     status: 'shortbreak',
                 };
-            else if (state.status === 'shortbreak')
+            else if (state.status === 'shortbreak' || state.status === 'longbreak')
                 return {
                     ...state,
                     isRunning: false,
@@ -35,7 +42,7 @@ const reducer = (state: Pomodoro, action: ActionType) => {
                 isRunning: false,
             };
         }
-        case 'take-break':
+        case 'start-shortbreak':
             return {
                 ...state,
                 currentTime: 300,
@@ -48,6 +55,13 @@ const reducer = (state: Pomodoro, action: ActionType) => {
                 currentTime: 1500,
                 currentInterval: state.currentInterval + 1,
                 status: 'focus',
+            };
+        case 'start-longbreak':
+            return {
+                ...state,
+                currentTime: 900,
+                currentInterval: state.currentInterval,
+                status: 'longbreak',
             };
         case 'countdown':
             return { ...state, currentTime: state.currentTime - 1 };
