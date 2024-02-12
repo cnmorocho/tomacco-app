@@ -7,7 +7,7 @@ import { createNotification } from '@/utils/functions';
 const initialPomodoroState: Pomodoro = {
     isRunning: false,
     status: 'focus',
-    currentInterval: 1,
+    currentInterval: 0,
     currentTime: 1500,
 };
 

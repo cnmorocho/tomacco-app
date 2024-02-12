@@ -1,5 +1,4 @@
 import Head from 'next/head';
-import styles from './desktop-wrapper.module.css';
 
 type DesktopWrapperProps = {
     children: JSX.Element | JSX.Element[];
@@ -8,7 +7,7 @@ type DesktopWrapperProps = {
 
 const DesktopWrapper = ({ children, title }: DesktopWrapperProps) => {
     return (
-        <div className={styles.container}>
+        <div className="m-0 w-full h-screen p-0 bg-zinc-50">
             <Head>
                 <title>{title}</title>
             </Head>

@@ -1,8 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import Countdown from '../Countdown';
-import styles from './timer-section.module.css';
 import CountdownButton from '../CountdownButton';
-import SkipButton from '../SkipButton';
 import { formatCountdown } from '@/utils/functions';
 import { PomodoroContext } from '@/store/countdown';
 
@@ -25,12 +23,12 @@ const TimerSection = () => {
     const ConditionalButton = (): JSX.Element => {
         return isRunning ? (
             <CountdownButton
-                text='PAUSAR'
+                text='Pause'
                 action={() => dispatch({ type: 'pause' })}
             />
         ) : (
             <CountdownButton
-                text='INICIAR'
+                text='Start'
                 action={() => dispatch({ type: 'play' })}
             />
         );
@@ -39,16 +37,13 @@ const TimerSection = () => {
     const [minutes, seconds] = formatCountdown(currentTime);
 
     return (
-        <section className={`${styles.section} ${status}`}>
+        <section className="w-full flex flex-col items-center justify-center gap-10">
             <Countdown
                 minutes={minutes}
                 seconds={seconds}
                 currentInterval={currentInterval}
             />
-            <div className={styles['buttons']}>
-                <ConditionalButton />
-                <SkipButton action={() => dispatch({ type: 'skip' })} />
-            </div>
+            <ConditionalButton />
         </section>
     );
 };

@@ -1,7 +1,7 @@
 import { Pomodoro } from '@/interfaces';
 import { ActionType } from './types';
 
-const reducer = (state: Pomodoro, action: ActionType) => {
+const reducer = (state: Pomodoro, action: ActionType): Pomodoro => {
     const { type } = action;
     switch (type) {
         case 'play':
@@ -66,7 +66,7 @@ const reducer = (state: Pomodoro, action: ActionType) => {
         case 'countdown':
             return { ...state, currentTime: state.currentTime - 1 };
         default:
-            state;
+            return state;
     }
 };
 
