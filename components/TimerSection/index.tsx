@@ -6,7 +6,7 @@ import { PomodoroContext } from '@/store/countdown';
 
 const TimerSection = () => {
     const { pomodoro, dispatch } = useContext(PomodoroContext);
-    const { currentTime, currentInterval, isRunning, status } = pomodoro;
+    const { currentTime, currentInterval, isRunning } = pomodoro;
 
     useEffect(() => {
         if (Notification.permission === 'granted') return;
