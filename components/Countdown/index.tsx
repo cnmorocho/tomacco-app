@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { PomodoroContext } from '@/store/countdown';
-import { robotoSerif } from '@/fonts';
+import { robotoSerif, roboto } from '@/fonts';
 
 type CountdownProps = {
     minutes: string;
@@ -19,7 +19,7 @@ const Countdown = ({ minutes, seconds, currentInterval }: CountdownProps) => {
         <div className={`${robotoSerif.className} flex flex-col items-center text-zinc-800`}>
             <p
                 onClick={resetCountdown}
-                className="text-2xl cursor-pointer font-normal" >
+                className={`${roboto.className} text-lg cursor-pointer font-normal`} >
                 #{currentInterval}
             </p>
             <p className="text-6xl font-bold">
