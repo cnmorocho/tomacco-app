@@ -35,11 +35,11 @@ const Navbar = () => {
         Good morning, <span className='font-black'>Carlos</span>.
       </p>
       <p>{currentHour}</p>
-      <div className='flex flex-row items-center'>
+      <div className='flex flex-row items-center w-36 max-w-44'>
         {city && weather ? (
           <p>{city}, {weather}° C</p>
         ) : (
-          <div className='animate-pulse h-3 bg-zinc-500 rounded-full w-28 transition duration-150'></div>
+          <div className='animate-pulse h-3 bg-zinc-500 rounded-full w-36'></div>
         )}
       </div>
     </div>
