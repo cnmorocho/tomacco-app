@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { robotoSerif } from '@/fonts';
-import { getLatitudeAndLongitude, getWeather } from '@/services/weather';
+import { roboto } from '@/fonts';
 
 const Navbar = () => {
     const [hour, setHour] = useState(new Date);
@@ -22,8 +21,8 @@ const Navbar = () => {
     const currentHour = hour.toLocaleTimeString('en-US', { hour12: true, hour: '2-digit', minute: '2-digit' });
 
     return (
-        <div className={`${robotoSerif.className} w-full h-auto flex flex-row justify-around py-3 font-medium text-md border-zinc-800 border-b`}>
-            <p>Good morning, <span className='font-bold italic'>Carlos</span>.</p>
+        <div className={`${roboto.className} w-full h-auto flex flex-row justify-around py-2 font-normal text-sm border-zinc-300 border-b-[1.8px]`}>
+            <p>Good morning, <span className='font-black'>Carlos</span>.</p>
             <p>{currentHour}</p>
             <p>{city}, {weather}° C</p>
         </div>
