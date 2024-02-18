@@ -1,6 +1,7 @@
-import React, { useContext } from 'react';
-import { PomodoroContext } from '@/store/countdown';
+import React from 'react';
 import { robotoSerif, roboto } from '@/fonts';
+import { useAppDispatch } from '@/redux/hooks';
+import { reset } from '@/redux/slices/countdown';
 
 type CountdownProps = {
     minutes: string;
@@ -9,17 +10,18 @@ type CountdownProps = {
 };
 
 const Countdown = ({ minutes, seconds, currentInterval }: CountdownProps) => {
-    const { dispatch } = useContext(PomodoroContext);
+    const dispatch = useAppDispatch();
 
     const resetCountdown = (): void => {
-        if (confirm('¿Esta seguro que desea reiniciar el pomodoro?')) dispatch({ type: 'reset' });
+        if (confirm('¿Esta seguro que desea reiniciar el pomodoro?'))
+          dispatch(reset());
     };
 
     return (
         <div className={`${robotoSerif.className} flex flex-col items-center text-zinc-800`}>
             <p
                 onClick={resetCountdown}
-                className={`${roboto.className} text-lg cursor-pointer font-normal`} >
+                className={`${roboto.className} text-lg cursor-pointer font-normal p-1 hover:bg-zinc-700 hover:text-zinc-50`} >
                 #{currentInterval}
             </p>
             <p className="text-6xl font-bold">
