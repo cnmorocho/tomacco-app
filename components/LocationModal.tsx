@@ -38,12 +38,12 @@ export default function LocationModal({ title, isVisible, toggleVisiblity }: Pro
         />
         <div className='flex flex-row gap-3'>
           <button
-            className={`${robotoCondensed.className} bg-zinc-700 text-zinc-50 h-8 w-24`}
+            className={`${robotoCondensed.className} bg-zinc-700 text-zinc-50 h-8 w-24 text-sm`}
             onClick={handleSearch}>
             Search
           </button>
           <button
-            className={`${robotoCondensed.className} bg-zinc-700 text-zinc-50 h-8 w-24`}
+            className={`${robotoCondensed.className} bg-zinc-700 text-zinc-50 h-8 w-24 text-sm`}
             onClick={() => toggleVisiblity(false)}>
             Cancel
           </button>
