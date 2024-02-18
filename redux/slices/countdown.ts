@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState: Pomodoro = {
   isRunning: false,
-  status: 'focus',
+  status: 'Focus',
   currentInterval: 0,
   currentTime: 1500,
 };
@@ -23,7 +23,7 @@ export const countdownSlice = createSlice({
         ...state,
         currentTime: 1500,
         currentInterval: 0,
-        status: 'focus',
+        status: 'Focus',
         isRunning: false,
       };
     },
@@ -32,7 +32,7 @@ export const countdownSlice = createSlice({
         ...state,
         currentTime: 300,
         currentInterval: state.currentInterval,
-        status: 'shortbreak',
+        status: 'Short Break',
       };
     },
     startFocus: (state) => {
@@ -40,7 +40,7 @@ export const countdownSlice = createSlice({
         ...state,
         currentTime: 1500,
         currentInterval: state.currentInterval + 1,
-        status: 'focus',
+        status: 'Focus',
       };
     },
     startLongbreak: (state) => {
@@ -48,7 +48,7 @@ export const countdownSlice = createSlice({
         ...state,
         currentTime: 900,
         currentInterval: state.currentInterval,
-        status: 'longbreak',
+        status: 'Long Break',
       };
     },
     countdown: (state) => {

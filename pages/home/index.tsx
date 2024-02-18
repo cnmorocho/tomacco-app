@@ -9,9 +9,9 @@ import { useAppSelector } from '@/redux/hooks';
 
 export default function Home() {
     const [quote, setQuote] = useState('');
-    const {isRunning, currentTime} = useAppSelector(state => state.countdown);
+    const {isRunning, currentTime, status} = useAppSelector(state => state.countdown);
     const [minutes, seconds] = formatCountdown(currentTime);
-    const title = isRunning ? `${minutes}:${seconds}` : 'Tomacco'
+    const title = isRunning ? `[${status}] ${minutes}:${seconds}` : 'Tomacco'
 
     useEffect(() => {
         getRandomMotivationalQuote().then(setQuote);
