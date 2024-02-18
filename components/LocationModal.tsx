@@ -50,9 +50,9 @@ export default function LocationModal({ title, isVisible, toggleVisiblity }: Pro
         </div>
         {locations.length !== 0 ? (
           <div>
-            <p>Locations found</p>
+            <p>Recently found</p>
             <div className='bg-zinc-50 border-zinc-400 border flex flex-col max-h-72 overflow-auto'>
-              {locations.map((location: Location, index) => <LocationItem key={index} location={location}/>)}
+              {locations.map((location: Location, index) => <LocationItem key={index} location={location} onClick={() => toggleVisiblity(false)}/>)}
             </div>
           </div>
         ) : (
@@ -63,10 +63,16 @@ export default function LocationModal({ title, isVisible, toggleVisiblity }: Pro
   );
 }
 
-function LocationItem({location}: {location: Location}) {
-  const dispatch = useAppDispatch()
+function LocationItem({location, onClick}: {location: Location, onClick: Function}) {
+  const dispatch = useAppDispatch();
+
+  function handleSetLocation() {
+    dispatch(setLocation(location));
+    onClick();
+  }
+
   return (
-    <div className="flex flex-col gap-1 border-b border-zinc-400 hover:bg-zinc-700 hover:text-zinc-50 hover:cursor-pointer transition duration-200 p-1" onClick={() => dispatch(setLocation(location))}>
+    <div className="flex flex-col gap-1 border-b border-zinc-400 hover:bg-zinc-700 hover:text-zinc-50 hover:cursor-pointer transition duration-200 p-1" onClick={handleSetLocation}>
       <p>({location.country_code}) {location.name}</p>
       <p>{location.admin1 ? <span>{location.admin1} </span> : false}({location.latitude}°E, {location.longitude}°N)</p>
     </div>
