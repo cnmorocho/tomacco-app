@@ -1,14 +1,16 @@
 import axios, { AxiosResponse } from "axios";
 
 type GeocodingApiResponse = {
-  results: City[]
+  results: Location[]
 }
 
-type City = {
+export type Location = {
   name: string,
   latitude: string,
   longitude: string,
   country: string,
+  admin1?: string,
+  country_code: string;
 }
 
 type Weather = {
@@ -17,9 +19,9 @@ type Weather = {
   }
 }
 
-export async function getLatitudeAndLongitude(location: string) {
+export async function getLatitudeAndLongitude(location: string): Promise<Location[]> {
   const res: AxiosResponse<GeocodingApiResponse> = await axios.get(`https://geocoding-api.open-meteo.com/v1/search?name=${location.replace(' ', '+')}`);
-  const cities: City[] = res.data.results;
+  const cities: Location[] = res.data.results;
   return cities;
 }
 

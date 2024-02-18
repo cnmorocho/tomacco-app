@@ -4,13 +4,13 @@ const initialState = { name: 'Guest' };
 
 export const userSlice = createSlice({
   name: 'user',
-  initialState,
+  initialState: initialState,
   reducers: {
-    set: (state, action) => {
+    setName: (state, action) => {
       state.name = action.payload;
     }
   }
 });
 
-export const { set } = userSlice.actions;
+export const { setName } = userSlice.actions;
 export default userSlice.reducer;
