@@ -1,4 +1,4 @@
-import { Location } from "@/services/weather";
+import { Location } from "@/src/services/weather";
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState: Location = {

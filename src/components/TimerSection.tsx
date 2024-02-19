@@ -1,11 +1,11 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import Countdown from './Countdown';
 import CountdownButton from './CountdownButton';
 import { createNotification, formatCountdown } from '@/utils/functions';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { countdown, pause, play, startFocus, startLongbreak, startShortbreak } from '@/redux/slices/countdown';
+import { Status } from '@/types';
 
-type Status = 'focus' | 'shortbreak' | 'longbreak'
 
 const TimerSection = () => {
     const { currentTime, currentInterval, isRunning, status } = useAppSelector(state => state.countdown);
@@ -13,9 +13,9 @@ const TimerSection = () => {
 
     const isStatusDone = ($status: Status): boolean => isTimeZero() && status === $status;
 
-    const isTimeForBreak = (): boolean => isStatusDone('focus');
+    const isTimeForBreak = (): boolean => isStatusDone('Focus');
 
-    const isTimeForFocus = (): boolean => isStatusDone('shortbreak') || isStatusDone('longbreak');
+    const isTimeForFocus = (): boolean => isStatusDone('Short Break') || isStatusDone('Long Break');
 
     const isTimeToLongBreak = (): boolean => isTimeForBreak() && currentInterval % 4 === 0 && currentInterval !== 0;
 

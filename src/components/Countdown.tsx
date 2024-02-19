@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { robotoSerif, roboto } from '@/fonts';
-import { useAppDispatch } from '@/redux/hooks';
-import { reset } from '@/redux/slices/countdown';
 import ConfirmationModal from './ConfirmationModal';
 
 type CountdownProps = {

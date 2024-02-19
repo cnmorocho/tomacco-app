@@ -1,4 +1,4 @@
-import { Pomodoro } from '@/interfaces';
+import { Pomodoro } from '@/types';
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState: Pomodoro = {

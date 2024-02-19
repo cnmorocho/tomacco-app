@@ -3,5 +3,8 @@
     "Longbreak",
     "Pomodoro",
     "Shortbreak"
+  ],
+  "cSpell.ignoreWords": [
+    "persistor"
   ]
 }
