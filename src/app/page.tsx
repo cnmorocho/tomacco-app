@@ -5,7 +5,7 @@ import { store } from '@/redux/store';
 import CountdownProvider from '@/redux/providers/CountdownProvider';
 import App from '@/components/App';
 
-export default function Home() {
+export default function IndexPage() {
   const persistor = persistStore(store);
 
   return (
