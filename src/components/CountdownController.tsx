@@ -7,7 +7,7 @@ import { countdown, pause, play, startFocus, startLongbreak, startShortbreak } f
 import { Status } from '@/types';
 
 
-const TimerSection = () => {
+const CountdownController = () => {
     const { currentTime, currentInterval, isRunning, status } = useAppSelector(state => state.countdown);
     const dispatch = useAppDispatch();
 
@@ -89,4 +89,4 @@ const TimerSection = () => {
     );
 };
 
-export default TimerSection;
+export default CountdownController;

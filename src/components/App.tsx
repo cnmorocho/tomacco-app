@@ -1,15 +1,17 @@
 import DesktopWrapper from './DesktopWrapper';
 import Navbar from './Navbar';
-import TimerSection from './TimerSection';
+import CountdownController from './CountdownController';
 import Quote from './Quote';
+import NoteList from './NoteList';
 
 export default function App() {
   return (
     <DesktopWrapper>
       <Navbar />
-      <div className='h-3/5 flex flex-col justify-center gap-10'>
+      <div className='h-auto flex flex-col justify-center gap-10 flex-grow'>
         <Quote />
-        <TimerSection />
+        <CountdownController />
+        <NoteList/>
       </div>
     </DesktopWrapper>
   );

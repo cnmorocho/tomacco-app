@@ -4,7 +4,7 @@ type DesktopWrapperProps = {
 
 const DesktopWrapper = ({ children }: DesktopWrapperProps) => {
     return (
-        <div className="m-0 w-full h-screen p-0 bg-zinc-50">
+        <div className="m-0 w-full h-screen p-0 bg-zinc-50 flex flex-col">
             {children}
         </div>
     );
