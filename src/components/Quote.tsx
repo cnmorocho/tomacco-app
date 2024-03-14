@@ -1,3 +1,5 @@
+"use client";
+
 import { robotoSerif } from '@/fonts';
 import { getRandomMotivationalQuote } from '@/services/quotes';
 import { useEffect, useState } from 'react';
