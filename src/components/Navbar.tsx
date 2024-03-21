@@ -84,18 +84,18 @@ function WeatherNavItem() {
 
 function StatisticsNavItem() {
   return (
-    <NavItem>
+    <NavItem href='/stats'>
       <BarChartIcon fontSize='inherit' sx={{ fontSize: 13 }} />
-      <Link href='/stats'>Stats</Link>
+      <p>Stats</p>
     </NavItem>
   );
 }
 
 function PomodoroNavItem() {
   return (
-    <NavItem>
+    <NavItem href='/'>
       <TimerIcon fontSize='inherit' sx={{ fontSize: 13 }} />
-      <Link href='/'>Pomodoro</Link>
+      <p>Pomodoro</p>
     </NavItem>
   );
 }

@@ -17,9 +17,9 @@ export default function RootLayout({
     <html lang='en'>
       <body>
           <CountdownProvider>
-            <div className='m-0 w-full h-screen p-0 bg-zinc-50 flex flex-col'>
+            <div className='m-0 w-full h-screen p-0 bg-zinc-50 flex flex-col items-center'>
               <Navbar />
-              <div className="flex flex-grow">
+              <div className="lg:w-[700px] max-w-[700px] flex grow">
                 {children}
               </div>
             </div>

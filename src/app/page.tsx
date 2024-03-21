@@ -1,13 +1,10 @@
 // import Quote from '@/components/Quote';
 import CountdownController from '@/components/CountdownController';
-// import NoteList from '@/components/NoteList';
 
 export default function Home() {
   return (
-      <>
-        {/* <Quote /> */}
+      <div className='w-full pt-10 flex flex-col gap-20'>
         <CountdownController />
-        {/* <NoteList /> */}
-      </>
+      </div>
   );
 }

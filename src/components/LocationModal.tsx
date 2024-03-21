@@ -26,7 +26,7 @@ export default function LocationModal({ title, isVisible, toggleVisiblity }: Pro
   }
 
   return (
-    <div className='w-full h-4/5 fixed top-0 left-0 bg-transparent flex items-center justify-center'>
+    <div className='w-full h-4/5 fixed top-0 left-0 bg-transparent flex items-center justify-center z-50'>
       <div className='w-[500px] min-h-28 bg-zinc-50 border-zinc-500 border py-2 px-3 flex flex-col gap-2'>
         <p className={`${roboto.className} text-lg font-medium`}>{title}</p>
         <input
