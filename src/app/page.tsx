@@ -1,4 +1,3 @@
-// import Quote from '@/components/Quote';
 import CountdownController from '@/components/CountdownController';
 
 export default function Home() {
