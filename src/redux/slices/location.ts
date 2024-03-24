@@ -1,4 +1,4 @@
-import { Location } from "@/src/services/weather";
+import { Location } from "@/services/weather";
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState: Location = {
@@ -14,7 +14,7 @@ export const locationSlice = createSlice({
   name: 'location',
   initialState: initialState,
   reducers: {
-    setLocation: (state, action: { type: string, payload: Location }) => {
+    setLocation: (_state, action: { type: string, payload: Location }) => {
        return action.payload;
     }
   }

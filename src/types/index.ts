@@ -1,4 +1,4 @@
-export type Pomodoro {
+export type Pomodoro = {
     currentTime: number;
     isRunning: boolean;
     currentInterval: number;
@@ -6,3 +6,8 @@ export type Pomodoro {
 }
 
 export type Status = 'Focus' | 'Short Break' | 'Long Break';
+
+export type Stats = {
+    date: string,
+    pomos: number
+}

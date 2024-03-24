@@ -1,6 +1,7 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import userReducer from './slices/user';
 import countdownReducer from './slices/countdown';
+import statsReducer from './slices/stats';
 import { persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 import locationReducer from './slices/location';
@@ -9,13 +10,14 @@ const persistConfig = {
   key: 'root',
   storage,
   version: 1,
-  whitelist: ['user', 'location']
+  whitelist: ['user', 'location', 'stats']
 }
 
 const rootReducer = combineReducers({
   user: userReducer,
   countdown: countdownReducer,
   location: locationReducer,
+  stats: statsReducer,
 })
  
 const persistedReducer = persistReducer(persistConfig, rootReducer)

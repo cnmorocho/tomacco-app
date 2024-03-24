@@ -1,10 +1,13 @@
+"use client";
+
 import React, { useEffect } from 'react';
 import Countdown from './Countdown';
 import CountdownButton from './CountdownButton';
-import { createNotification, formatCountdown } from '@/utils/functions';
+import { createNotification, formatCountdown, getTimestampFromDate } from '@/utils/functions';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { countdown, pause, play, startFocus, startLongbreak, startShortbreak } from '@/redux/slices/countdown';
 import { Status } from '@/types';
+import { addTimestamp } from '@/redux/slices/stats';
 
 
 const CountdownController = () => {
@@ -39,6 +42,7 @@ const CountdownController = () => {
 
             if (isTimeForFocus()) {
                 createNotification('¿Ya estas fresco?', '¡Momento de laburar! 🤓');
+                dispatch(addTimestamp(getTimestampFromDate(new Date())));
                 dispatch(startFocus());
                 return;
             }

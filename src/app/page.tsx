@@ -1,19 +1,9 @@
-"use client"
-import { PersistGate } from 'redux-persist/integration/react';
-import { persistStore } from 'redux-persist';
-import { store } from '@/redux/store';
-import CountdownProvider from '@/redux/providers/CountdownProvider';
-import App from '@/components/App';
+import CountdownController from '@/components/CountdownController';
 
-export default function IndexPage() {
-  const persistor = persistStore(store);
-
+export default function Home() {
   return (
-    <PersistGate persistor={persistor}>
-      <CountdownProvider>
-        {' '}
-        <App />
-      </CountdownProvider>
-    </PersistGate>
+      <div className='w-full pt-10 flex flex-col gap-20'>
+        <CountdownController />
+      </div>
   );
 }

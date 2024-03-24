@@ -1,10 +1,16 @@
+"use client";
+
 import React, { useEffect, useState } from 'react';
 import { roboto } from '@/fonts';
 import { getWeather } from '@/services/weather';
 import NameModal from './NameModal';
 import { useAppSelector } from '@/redux/hooks';
 import LocationModal from './LocationModal';
+import NavItem from './NavItem';
+import Link from 'next/link';
 import CloudCircleIcon from '@mui/icons-material/CloudCircle';
+import BarChartIcon from '@mui/icons-material/BarChart';
+import TimerIcon from '@mui/icons-material/Timer';
 
 const Navbar = () => {
   return (
@@ -12,6 +18,8 @@ const Navbar = () => {
       className={`${roboto.className} w-full h-7 flex flex-row justify-around items-center font-normal text-sm border-zinc-300 border-b-[1.8px]`}>
       <NavName />
       <div className='flex flex-row gap-1'>
+        <PomodoroNavItem />
+        <StatisticsNavItem />
         <WeatherNavItem />
       </div>
     </div>
@@ -73,5 +81,25 @@ function WeatherNavItem() {
     </div>
   );
 }
+
+function StatisticsNavItem() {
+  return (
+    <NavItem href='/stats'>
+      <BarChartIcon fontSize='inherit' sx={{ fontSize: 13 }} />
+      <p>Stats</p>
+    </NavItem>
+  );
+}
+
+function PomodoroNavItem() {
+  return (
+    <NavItem href='/'>
+      <TimerIcon fontSize='inherit' sx={{ fontSize: 13 }} />
+      <p>Pomodoro</p>
+    </NavItem>
+  );
+}
+
+
 
 export default Navbar;
