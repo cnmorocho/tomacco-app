@@ -7,7 +7,7 @@ export type Pomodoro = {
 
 export type Status = 'Focus' | 'Short Break' | 'Long Break';
 
-export type StatsCounter = {
+export type Stats = {
     date: string,
-    count: number
+    pomos: number
 }

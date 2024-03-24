@@ -1,9 +1,9 @@
 import { Pomodoro } from '@/types';
 import { createSlice } from '@reduxjs/toolkit';
 
-const FOCUS_TIME = 10 // default 1500
-const BREAK_TIME = 3  // default 300
-const LONG_BREAK_TIME = 5 // default 900
+const FOCUS_TIME = 1500;
+const BREAK_TIME = 300;
+const LONG_BREAK_TIME = 900; 
 
 const initialState: Pomodoro = {
   isRunning: false,
