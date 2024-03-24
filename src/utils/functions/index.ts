@@ -8,8 +8,8 @@ export const formatCountdown = (seconds: number) => {
   ];
 };
 
-export const createNotification = (title: string, body: string) => {
-  new Notification(title, { body: body });
+export const createNotification = (title: string, message: string) => {
+  new Notification(title, { body: message });
 };
 
 export * from './timestamps';

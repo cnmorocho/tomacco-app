@@ -19,6 +19,7 @@ import {
 } from '@/redux/slices/countdown';
 import { Status } from '@/types';
 import { addTimestamp } from '@/redux/slices/stats';
+import { notificationAskForPermission, notificationBreak, notificationFocus } from '@/utils/functions/texts';
 
 const CountdownController = () => {
   const { currentTime, currentInterval, isRunning, status } = useAppSelector(
@@ -44,19 +45,19 @@ const CountdownController = () => {
 
     const interval = setInterval(() => {
       if (isTimeToLongBreak()) {
-        createNotification('¡Increible trabajo!', 'Anda a comer una fruta 🍅');
+        createNotification(notificationBreak.title, notificationBreak.message);
         dispatch(startLongbreak());
         return;
       }
 
       if (isTimeForBreak()) {
-        createNotification('¡Buen trabajo!', 'Tomaté un descansito 🍅');
+        createNotification(notificationBreak.title, notificationBreak.message);
         dispatch(startShortbreak());
         return;
       }
 
       if (isTimeForFocus()) {
-        createNotification('¿Ya estas fresco?', '¡Momento de laburar! 🤓');
+        createNotification(notificationFocus.title, notificationFocus.message);
         dispatch(addTimestamp(getTimestampFromDate(new Date())));
         dispatch(startFocus());
         return;
@@ -74,9 +75,7 @@ const CountdownController = () => {
       Notification.requestPermission().then(
         (res) =>
           res === 'granted' &&
-          new Notification('Hola, humano productivo', {
-            body: 'Desde ahora te notificaré por acá',
-          })
+          createNotification(notificationAskForPermission.title, notificationAskForPermission.message)
       );
   }, []);
 
