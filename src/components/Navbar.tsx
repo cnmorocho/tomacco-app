@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import React, { useEffect, useState } from 'react';
 import { roboto } from '@/fonts';
@@ -7,7 +7,6 @@ import NameModal from './NameModal';
 import { useAppSelector } from '@/redux/hooks';
 import LocationModal from './LocationModal';
 import NavItem from './NavItem';
-import Link from 'next/link';
 import CloudCircleIcon from '@mui/icons-material/CloudCircle';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import TimerIcon from '@mui/icons-material/Timer';
@@ -15,7 +14,8 @@ import TimerIcon from '@mui/icons-material/Timer';
 const Navbar = () => {
   return (
     <div
-      className={`${roboto.className} w-full h-7 flex flex-row justify-around items-center font-normal text-sm border-zinc-300 border-b-[1.8px]`}>
+      className={`${roboto.className} flex h-7 w-full flex-row items-center justify-around border-b-[1.8px] border-zinc-300 text-sm font-normal`}
+    >
       <NavName />
       <div className='flex flex-row gap-1'>
         <PomodoroNavItem />
@@ -27,15 +27,16 @@ const Navbar = () => {
 };
 
 function NavName() {
-  const userName = useAppSelector(state => state.user.name);
+  const userName = useAppSelector((state) => state.user.name);
   const [showNameModal, setShowNameModal] = useState(false);
 
   return (
     <div>
       <p
-        className='hover:border-zinc-300 hover:cursor-pointer transition duration-200 flex items-center h-full px-2 border-x border-zinc-50'
-        onClick={() => setShowNameModal(true)}>
-        {userName}'s Tomacco
+        className='flex h-full items-center border-x border-zinc-50 px-2 transition duration-200 hover:cursor-pointer hover:border-zinc-300'
+        onClick={() => setShowNameModal(true)}
+      >
+        {`${userName}'s Tomacco`}
       </p>
       <NameModal
         title='Set name'
@@ -48,29 +49,29 @@ function NavName() {
 
 function WeatherNavItem() {
   const [weather, setWeather] = useState('');
-  
-  const location = useAppSelector(state => state.location);
+  const location = useAppSelector((state) => state.location);
 
   useEffect(() => {
     getWeather(location.latitude, location.longitude).then((currentWeather) =>
-      setWeather(currentWeather.current['temperature_2m']),
+      setWeather(currentWeather.current['temperature_2m'])
     );
   }, [location]);
   const [showSetLocationModal, setShowLocationModal] = useState(false);
   return (
     <div>
-      <div className='flex flex-row items-center h-full'>
+      <div className='flex h-full flex-row items-center'>
         {location.name && weather ? (
           <div
-            className='border-x border-zinc-50 hover:border-zinc-300 hover:cursor-pointer transition duration-200 flex items-center h-full px-2 box-border gap-1'
-            onClick={() => setShowLocationModal(true)}>
+            className='box-border flex h-full items-center gap-1 border-x border-zinc-50 px-2 transition duration-200 hover:cursor-pointer hover:border-zinc-300'
+            onClick={() => setShowLocationModal(true)}
+          >
             <CloudCircleIcon fontSize='inherit' sx={{ fontSize: 13 }} />
             <p>
               {location.name}, {weather}° C
             </p>
           </div>
         ) : (
-          <div className='animate-pulse h-3 bg-zinc-500 rounded-full w-36 transition duration-500'></div>
+          <div className='h-3 w-36 animate-pulse rounded-full bg-zinc-500 transition duration-500'></div>
         )}
       </div>
       <LocationModal
@@ -99,7 +100,5 @@ function PomodoroNavItem() {
     </NavItem>
   );
 }
-
-
 
 export default Navbar;

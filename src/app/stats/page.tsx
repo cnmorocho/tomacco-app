@@ -12,7 +12,7 @@ export default function Stats() {
 
   return (
     <div className={`${roboto.className} w-full pt-10`}>
-      <div className='flex items-center justify-between px-3 py-2 mb-4 bg-zinc-800 text-zinc-50'>
+      <div className='mb-4 flex items-center justify-between bg-zinc-800 px-3 py-2 text-zinc-50'>
         <p className='text-3xl font-bold'>Stats</p>
         <p className='text-xl font-medium'>{date}</p>
       </div>

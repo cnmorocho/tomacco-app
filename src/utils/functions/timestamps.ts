@@ -1,4 +1,4 @@
-import { Stats } from "@/types";
+import { Stats } from '@/types';
 
 export function getTimestampFromDate(date: Date): number {
   return date.getTime();
@@ -11,7 +11,7 @@ export function getDateFromTimestamp(timestamp: number): Date {
 export function timestampIsInMonth(
   timestamp: number,
   year: number,
-  month: number,
+  month: number
 ): boolean {
   const firstDay = new Date(year, month, 1).getTime();
   const lastDay = new Date(year, month + 1, 0).getTime();
@@ -22,12 +22,12 @@ export function timestampIsInDay(timestamp: number, day: Date): boolean {
   const startOfDay = new Date(
     day.getFullYear(),
     day.getMonth(),
-    day.getDate(),
+    day.getDate()
   ).getTime();
   const endOfDay = new Date(
     day.getFullYear(),
     day.getMonth(),
-    day.getDate() + 1,
+    day.getDate() + 1
   ).getTime();
   return timestamp >= startOfDay && timestamp <= endOfDay;
 }
@@ -36,7 +36,7 @@ export function getTimestampOfMonth(timestamps: Array<number>): Array<number> {
   const year = new Date().getFullYear();
   const month = new Date().getMonth();
   return timestamps.filter((timestamp: number) =>
-    timestampIsInMonth(timestamp, year, month),
+    timestampIsInMonth(timestamp, year, month)
   );
 }
 
@@ -45,7 +45,7 @@ export function generateMonthlyStats(timestamps: Array<number>) {
   const daysInMonth = new Date(
     today.getFullYear(),
     today.getMonth() + 1,
-    0,
+    0
   ).getDate();
   const stats = [];
 
@@ -53,7 +53,7 @@ export function generateMonthlyStats(timestamps: Array<number>) {
     let date = new Date(today.getFullYear(), today.getMonth(), i);
     const numberOfTimestampsOfToday = getTimestampsOfDate(
       timestamps,
-      date,
+      date
     ).length;
     stats.push({ date: date.toISOString(), pomos: numberOfTimestampsOfToday });
   }
@@ -68,7 +68,7 @@ export function getDayOfIsoDate(isoDate: string): string {
 export function timestampIsInWeek(
   timestamp: number,
   firstDayOfWeek: Date,
-  lastDayOfWeek: Date,
+  lastDayOfWeek: Date
 ): boolean {
   return (
     timestamp >= firstDayOfWeek.getTime() &&
@@ -81,12 +81,12 @@ export function getTimestampsOfWeek(timestamps: Array<number>): Array<number> {
   const startOfWeek = new Date(
     today.getFullYear(),
     today.getMonth(),
-    today.getDate() - today.getDay(),
+    today.getDate() - today.getDay()
   );
   const lastDayOfWeek = new Date(today.setDate(startOfWeek.getDate() + 6));
 
   return timestamps.filter((timestamp: number) =>
-    timestampIsInWeek(timestamp, startOfWeek, lastDayOfWeek),
+    timestampIsInWeek(timestamp, startOfWeek, lastDayOfWeek)
   );
 }
 
@@ -95,7 +95,7 @@ export function generateWeeklyStats(timestamps: Array<number>): Array<Stats> {
   const startOfWeek = new Date(
     today.getFullYear(),
     today.getMonth(),
-    today.getDate() - today.getDay(),
+    today.getDate() - today.getDay()
   );
   const stats = [];
 
@@ -103,11 +103,11 @@ export function generateWeeklyStats(timestamps: Array<number>): Array<Stats> {
     let date = new Date(
       startOfWeek.getFullYear(),
       startOfWeek.getMonth(),
-      startOfWeek.getDate() + i,
+      startOfWeek.getDate() + i
     );
     const numberOfTimestampsOfToday = getTimestampsOfDate(
       timestamps,
-      date,
+      date
     ).length;
     stats.push({ date: date.toISOString(), pomos: numberOfTimestampsOfToday });
   }
@@ -121,10 +121,10 @@ export function getWeekdayNameOfIsoDate(isoDate: string): string {
 
 export function getTimestampsOfDate(
   timestamps: Array<number>,
-  date: Date,
+  date: Date
 ): Array<number> {
   return timestamps.filter((timestamp: number) =>
-    timestampIsInDay(timestamp, date),
+    timestampIsInDay(timestamp, date)
   );
 }
 

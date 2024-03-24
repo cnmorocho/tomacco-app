@@ -1,9 +1,9 @@
 import CountdownController from '@/components/CountdownController';
 
-export default function Home() {
+export default function Page() {
   return (
-      <div className='w-full pt-10 flex flex-col gap-20'>
-        <CountdownController />
-      </div>
+    <div className='flex w-full flex-col gap-20 pt-10'>
+      <CountdownController />
+    </div>
   );
 }

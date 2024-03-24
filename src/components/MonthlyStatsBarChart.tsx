@@ -1,9 +1,6 @@
 'use client';
 import { useAppSelector } from '@/redux/hooks';
-import {
-  generateMonthlyStats,
-  getDayOfIsoDate,
-} from '@/utils/functions';
+import { generateMonthlyStats, getDayOfIsoDate } from '@/utils/functions';
 import {
   Bar,
   BarChart,
@@ -38,12 +35,14 @@ export function MonthlyStatsBarChart() {
 function CustomTooltip({ active, payload }: TooltipProps<ValueType, NameType>) {
   if (active && payload && payload.length && payload[0].payload.pomos != 0) {
     return (
-      <TooltipContainer message={`${payload[0].payload.pomos} pomodoros on ${new Intl.DateTimeFormat(
-        'en-US',
-        {
-          dateStyle: 'long',
-        },
-      ).format(new Date(payload[0].payload.date))}`}/>
+      <TooltipContainer
+        message={`${payload[0].payload.pomos} pomodoros on ${new Intl.DateTimeFormat(
+          'en-US',
+          {
+            dateStyle: 'long',
+          }
+        ).format(new Date(payload[0].payload.date))}`}
+      />
     );
   }
 }
