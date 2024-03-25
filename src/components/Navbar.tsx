@@ -10,6 +10,7 @@ import NavItem from './NavItem';
 import CloudCircleIcon from '@mui/icons-material/CloudCircle';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import TimerIcon from '@mui/icons-material/Timer';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 const Navbar = () => {
   return (
@@ -32,17 +33,14 @@ function NavName() {
 
   return (
     <div>
-      <p
-        className='flex h-full items-center border-x border-zinc-50 px-2 transition duration-200 hover:cursor-pointer hover:border-zinc-300'
+      <div
+        className='flex h-full items-center gap-1 border-x border-zinc-50 px-2 font-medium transition duration-200 hover:cursor-pointer hover:border-zinc-300'
         onClick={() => setShowNameModal(true)}
       >
-        {`${userName}'s Tomacco`}
-      </p>
-      <NameModal
-        title='Set name'
-        isVisible={showNameModal}
-        toggleVisiblity={setShowNameModal}
-      />
+        <AccountCircleIcon sx={{ fontSize: 15 }} />
+        <p>{`${userName}'s Tomacco`}</p>
+      </div>
+      <NameModal isVisible={showNameModal} toggleVisiblity={setShowNameModal} />
     </div>
   );
 }
@@ -65,7 +63,7 @@ function WeatherNavItem() {
             className='box-border flex h-full items-center gap-1 border-x border-zinc-50 px-2 transition duration-200 hover:cursor-pointer hover:border-zinc-300'
             onClick={() => setShowLocationModal(true)}
           >
-            <CloudCircleIcon fontSize='inherit' sx={{ fontSize: 13 }} />
+            <CloudCircleIcon fontSize='inherit' sx={{ fontSize: 15 }} />
             <p>
               {location.name}, {weather}° C
             </p>
@@ -75,7 +73,6 @@ function WeatherNavItem() {
         )}
       </div>
       <LocationModal
-        title='Set location'
         isVisible={showSetLocationModal}
         toggleVisiblity={setShowLocationModal}
       />
@@ -86,7 +83,7 @@ function WeatherNavItem() {
 function StatisticsNavItem() {
   return (
     <NavItem href='/stats'>
-      <BarChartIcon fontSize='inherit' sx={{ fontSize: 13 }} />
+      <BarChartIcon fontSize='inherit' sx={{ fontSize: 15 }} />
       <p>Stats</p>
     </NavItem>
   );
@@ -95,7 +92,7 @@ function StatisticsNavItem() {
 function PomodoroNavItem() {
   return (
     <NavItem href='/'>
-      <TimerIcon fontSize='inherit' sx={{ fontSize: 13 }} />
+      <TimerIcon fontSize='inherit' sx={{ fontSize: 15 }} />
       <p>Pomodoro</p>
     </NavItem>
   );

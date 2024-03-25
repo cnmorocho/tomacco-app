@@ -4,19 +4,17 @@ import { setName } from '@/redux/slices/user';
 import { ChangeEvent, useState } from 'react';
 
 type Props = {
-  title: string;
   isVisible: boolean;
   toggleVisiblity: Function;
 };
 
-export default function NameModal({
-  title,
-  isVisible,
-  toggleVisiblity,
-}: Props) {
+export default function NameModal({ isVisible, toggleVisiblity }: Props) {
   const userName = useAppSelector((state) => state.user.name);
   const dispatch = useAppDispatch();
-  const [newUserName, setNewUserName] = useState(userName);
+  const [newUserName, setNewUserName] = useState('');
+  const title = 'Set name';
+  const buttonLabel = 'Save';
+  const isDisabled = newUserName.length < 3 || newUserName.length > 15;
 
   if (!isVisible) return <></>;
 
@@ -29,13 +27,18 @@ export default function NameModal({
     toggleVisiblity(false);
   }
 
+  function closeModal() {
+    setNewUserName('');
+    toggleVisiblity(false)
+  }
+
   return (
     <div
       className='fixed left-0 top-0 z-50 flex h-4/5 w-full items-center justify-center bg-transparent'
-      onClick={() => toggleVisiblity(false)}
+      onClick={closeModal}
     >
       <div
-        className='flex min-h-28 w-[500px] flex-col gap-2 border border-zinc-500 bg-zinc-50 px-3 py-2'
+        className='flex min-h-28 w-[500px] flex-col gap-2 border border-zinc-500 bg-zinc-50 px-3 py-2 shadow-xl'
         onClick={(e) => e.stopPropagation()}
       >
         <p className={`${roboto.className} text-lg font-medium`}>{title}</p>
@@ -48,10 +51,11 @@ export default function NameModal({
             autoFocus
           />
           <button
-            className={`${robotoCondensed.className} h-8 w-24 bg-zinc-700 text-sm text-zinc-50`}
+            className={`${robotoCondensed.className} disabled:bg-zinc-300 disabled:text-zinc-400 disabled:cursor-not-allowed h-8 w-24 bg-zinc-700 text-sm text-zinc-50`}
             onClick={handleSetName}
+            disabled={isDisabled}
           >
-            Save
+            {buttonLabel}
           </button>
         </div>
       </div>
