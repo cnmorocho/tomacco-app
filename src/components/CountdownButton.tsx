@@ -1,6 +1,5 @@
 import React from 'react';
-import { robotoCondensed } from '@/fonts';
-import useSound from 'use-sound';
+import { roboto, robotoCondensed } from '@/fonts';
 
 type CountdownButtonProps = {
   text: string;
@@ -8,16 +7,14 @@ type CountdownButtonProps = {
 };
 
 const CountdownButton = ({ text, action }: CountdownButtonProps) => {
-  const [playClickSound] = useSound('/sounds/click.mp3', { volume: 0.4 });
   async function handleAction() {
-    playClickSound();
     action();
   }
 
   return (
     <button
       type='button'
-      className={`${robotoCondensed.className} h-12 w-28 bg-zinc-800 text-xl font-medium text-zinc-50`}
+      className={`${roboto.className} h-12 w-28 rounded-lg bg-zinc-800 text-xl font-medium text-zinc-50 hover:bg-zinc-700`}
       onClick={handleAction}
     >
       {text}

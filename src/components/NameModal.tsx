@@ -2,6 +2,7 @@ import { roboto, robotoCondensed } from '@/fonts';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { setName } from '@/redux/slices/user';
 import { ChangeEvent, useState } from 'react';
+import ModalButton from './ModalButton';
 
 type Props = {
   isVisible: boolean;
@@ -14,7 +15,7 @@ export default function NameModal({ isVisible, toggleVisiblity }: Props) {
   const [newUserName, setNewUserName] = useState('');
   const title = 'Set name';
   const buttonLabel = 'Save';
-  const isDisabled = newUserName.length < 3 || newUserName.length > 15;
+  const buttonIsDisabled = newUserName.length < 3 || newUserName.length > 15;
 
   if (!isVisible) return <></>;
 
@@ -29,7 +30,7 @@ export default function NameModal({ isVisible, toggleVisiblity }: Props) {
 
   function closeModal() {
     setNewUserName('');
-    toggleVisiblity(false)
+    toggleVisiblity(false);
   }
 
   return (
@@ -38,26 +39,20 @@ export default function NameModal({ isVisible, toggleVisiblity }: Props) {
       onClick={closeModal}
     >
       <div
-        className='flex min-h-28 w-[500px] flex-col gap-2 border border-zinc-500 bg-zinc-50 px-3 py-2 shadow-xl'
+        className='flex h-28 min-h-28 w-[500px] flex-col gap-2 rounded-md border border-zinc-500 bg-zinc-50 px-3 py-2 shadow-xl'
         onClick={(e) => e.stopPropagation()}
       >
         <p className={`${roboto.className} text-lg font-medium`}>{title}</p>
-        <div className='flex gap-3'>
+        <form className='flex gap-3' onSubmit={handleSetName}>
           <input
             type='text'
-            className='text-md h-8 w-full border border-zinc-500 bg-zinc-50 px-2 focus:outline-0'
+            className='text-md h-8 w-full rounded border border-zinc-500 bg-zinc-50 px-2 focus:outline-0'
             placeholder={userName}
             onChange={handleOnChangeInput}
             autoFocus
           />
-          <button
-            className={`${robotoCondensed.className} disabled:bg-zinc-300 disabled:text-zinc-400 disabled:cursor-not-allowed h-8 w-24 bg-zinc-700 text-sm text-zinc-50`}
-            onClick={handleSetName}
-            disabled={isDisabled}
-          >
-            {buttonLabel}
-          </button>
-        </div>
+          <ModalButton label={buttonLabel} isDisabled={buttonIsDisabled} />
+        </form>
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { robotoSerif, roboto } from '@/fonts';
+import { roboto } from '@/fonts';
 import ConfirmationModal from './ConfirmationModal';
 
 type CountdownProps = {

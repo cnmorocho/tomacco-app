@@ -19,7 +19,11 @@ import {
 } from '@/redux/slices/countdown';
 import { Status } from '@/types';
 import { addTimestamp } from '@/redux/slices/stats';
-import { notificationAskForPermission, notificationBreak, notificationFocus } from '@/utils/functions/texts';
+import {
+  notificationAskForPermission,
+  notificationBreak,
+  notificationFocus,
+} from '@/utils/functions/texts';
 
 const CountdownController = () => {
   const { currentTime, currentInterval, isRunning, status } = useAppSelector(
@@ -67,7 +71,14 @@ const CountdownController = () => {
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [currentTime, isRunning, isTimeForBreak, isTimeForFocus, isTimeToLongBreak, dispatch]);
+  }, [
+    currentTime,
+    isRunning,
+    isTimeForBreak,
+    isTimeForFocus,
+    isTimeToLongBreak,
+    dispatch,
+  ]);
 
   useEffect(() => {
     if (Notification.permission === 'granted') return;
@@ -75,7 +86,10 @@ const CountdownController = () => {
       Notification.requestPermission().then(
         (res) =>
           res === 'granted' &&
-          createNotification(notificationAskForPermission.title, notificationAskForPermission.message)
+          createNotification(
+            notificationAskForPermission.title,
+            notificationAskForPermission.message
+          )
       );
   }, []);
 

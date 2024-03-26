@@ -12,9 +12,9 @@ export default function Stats() {
 
   return (
     <div className={`${roboto.className} w-full pt-10`}>
-      <div className='mb-4 flex items-center justify-between bg-zinc-800 px-3 py-2 text-zinc-50'>
-        <p className='text-3xl font-bold'>Stats</p>
-        <p className='text-xl font-medium'>{date}</p>
+      <div className='mb-4 flex items-center justify-between border-b p-2 text-zinc-800'>
+        <p className='text-4xl font-extrabold'>Statistics</p>
+        <p className='text-xl font-bold text-zinc-500'>{date}</p>
       </div>
       <BannerWithStats />
       <Divider title='This week' />
