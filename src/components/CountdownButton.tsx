@@ -1,5 +1,5 @@
 import React from 'react';
-import { robotoCondensed } from '@/fonts';
+import { roboto } from '@/fonts';
 
 type CountdownButtonProps = {
   text: string;
@@ -14,7 +14,7 @@ const CountdownButton = ({ text, action }: CountdownButtonProps) => {
   return (
     <button
       type='button'
-      className={`${robotoCondensed.className} h-12 w-28 bg-zinc-800 text-xl font-medium text-zinc-50`}
+      className={`${roboto.className} h-12 w-28 rounded-lg bg-zinc-800 text-xl font-medium text-zinc-50 hover:bg-zinc-700`}
       onClick={handleAction}
     >
       {text}
