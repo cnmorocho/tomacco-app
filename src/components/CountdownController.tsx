@@ -20,6 +20,7 @@ const CountdownController = () => {
   };
 
   const [minutes, seconds] = formatCountdown(currentTime);
+  document.title = `Tomacco - ${minutes}:${seconds}`
 
   return (
     <section className='flex w-full flex-col items-center justify-center gap-10'>
