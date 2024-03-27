@@ -6,15 +6,12 @@ import { getWeather } from '@/services/weather';
 import NameModal from './NameModal';
 import { useAppSelector } from '@/redux/hooks';
 import LocationModal from './LocationModal';
-import NavItem from './NavItem';
 import CloudCircleIcon from '@mui/icons-material/CloudCircle';
 import BarChartIcon from '@mui/icons-material/BarChart';
-import TimerIcon from '@mui/icons-material/Timer';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { usePathname } from 'next/navigation';
+import StatsModal from './StatsModal';
 
 const Navbar = () => {
-  const currentPath = usePathname();
 
   return (
     <div
@@ -22,18 +19,7 @@ const Navbar = () => {
     >
       <NavName />
       <div className='flex flex-row gap-1'>
-        <NavItem
-          href='/'
-          label='Pomodoro'
-          icon={<TimerIcon fontSize='inherit' sx={{ fontSize: 15 }} />}
-          isActive={currentPath === '/'}
-        />
-        <NavItem
-          href='/stats'
-          label='Stats'
-          icon={<BarChartIcon fontSize='inherit' sx={{ fontSize: 15 }} />}
-          isActive={currentPath === '/stats'}
-        />
+        <NavStats />
         <WeatherNavItem />
       </div>
     </div>
@@ -54,6 +40,23 @@ function NavName() {
         <p>{`${userName}'s Tomacco`}</p>
       </div>
       <NameModal isVisible={showNameModal} toggleVisiblity={setShowNameModal} />
+    </div>
+  );
+}
+
+function NavStats() {
+  const [showStatsModal, setShowStatsModal] = useState(false);
+
+  return (
+    <div>
+      <div
+        className='flex h-full items-center gap-1 rounded px-2 py-1 font-medium hover:cursor-pointer hover:bg-zinc-200 active:bg-zinc-300'
+        onClick={() => setShowStatsModal(true)}
+      >
+        <BarChartIcon fontSize='inherit' sx={{ fontSize: 15 }} />
+        <p>Report</p>
+      </div>
+      <StatsModal isVisible={showStatsModal} toggleVisiblity={setShowStatsModal} />
     </div>
   );
 }

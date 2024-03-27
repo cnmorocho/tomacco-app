@@ -16,7 +16,7 @@ export default function BannerWithStats() {
   });
 
   return (
-    <div className='my-3 grid h-24 grid-cols-4 divide-x'>
+    <div className='grid h-24 grid-cols-4 divide-x'>
       <BannerStatsItem value={todayProgress} label='Today' />
       <BannerStatsItem value={thisWeekProgress} label='This week' />
       <BannerStatsItem value={thisMonthProgress} label={`On ${month}`} />
