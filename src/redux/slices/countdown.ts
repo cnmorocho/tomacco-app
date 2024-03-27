@@ -1,11 +1,15 @@
 import { Pomodoro } from '@/types';
 import { createSlice } from '@reduxjs/toolkit';
 
+const FOCUS_TIME = 1500;
+const BREAK_TIME = 300;
+const LONG_BREAK_TIME = 900;
+
 const initialState: Pomodoro = {
   isRunning: false,
   status: 'Focus',
   currentInterval: 0,
-  currentTime: 1500,
+  currentTime: FOCUS_TIME,
 };
 
 export const countdownSlice = createSlice({
@@ -21,7 +25,7 @@ export const countdownSlice = createSlice({
     reset: (state) => {
       return {
         ...state,
-        currentTime: 1500,
+        currentTime: FOCUS_TIME,
         currentInterval: 0,
         status: 'Focus',
         isRunning: false,
@@ -30,24 +34,24 @@ export const countdownSlice = createSlice({
     startShortbreak: (state) => {
       return {
         ...state,
-        currentTime: 300,
-        currentInterval: state.currentInterval,
+        currentTime: BREAK_TIME,
+        currentInterval: state.currentInterval + 1,
         status: 'Short Break',
       };
     },
     startFocus: (state) => {
       return {
         ...state,
-        currentTime: 1500,
-        currentInterval: state.currentInterval + 1,
+        currentTime: FOCUS_TIME,
+        currentInterval: state.currentInterval,
         status: 'Focus',
       };
     },
     startLongbreak: (state) => {
       return {
         ...state,
-        currentTime: 900,
-        currentInterval: state.currentInterval,
+        currentTime: LONG_BREAK_TIME,
+        currentInterval: state.currentInterval + 1,
         status: 'Long Break',
       };
     },
@@ -57,5 +61,13 @@ export const countdownSlice = createSlice({
   },
 });
 
-export const { play, pause, reset, countdown, startFocus, startLongbreak, startShortbreak } = countdownSlice.actions;
+export const {
+  play,
+  pause,
+  reset,
+  countdown,
+  startFocus,
+  startLongbreak,
+  startShortbreak,
+} = countdownSlice.actions;
 export default countdownSlice.reducer;

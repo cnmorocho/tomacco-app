@@ -25,23 +25,23 @@ export default function ConfirmationModal({
   }
 
   return (
-    <div className='w-full h-4/5 fixed top-0 left-0 bg-transparent flex items-center justify-center'>
-      <div className='w-[500px] min-h-28 bg-zinc-50 border-zinc-500 border py-2 px-3 flex flex-col gap-2'>
-        <p className={`${roboto.className} text-lg font-medium`}>
-          {title}
-        </p>
-        <p className={`${roboto.className} text-sm font-normal pb-2`}>
+    <div className='fixed left-0 top-0 flex h-4/5 w-full items-center justify-center bg-transparent'>
+      <div className='flex min-h-28 w-[500px] flex-col gap-2 border border-zinc-500 bg-zinc-50 px-3 py-2'>
+        <p className={`${roboto.className} text-lg font-medium`}>{title}</p>
+        <p className={`${roboto.className} pb-2 text-sm font-normal`}>
           {description}
         </p>
         <div className='flex flex-row gap-3'>
           <button
-            className={`${robotoCondensed.className} bg-zinc-700 text-zinc-50 h-8 w-24 text-sm`}
-            onClick={handleConfirm}>
+            className={`${robotoCondensed.className} h-8 w-24 bg-zinc-700 text-sm text-zinc-50`}
+            onClick={handleConfirm}
+          >
             Confirm
           </button>
           <button
-            className={`${robotoCondensed.className} bg-zinc-700 text-zinc-50 h-8 w-24 text-sm`}
-            onClick={() => toggleVisiblity(false)}>
+            className={`${robotoCondensed.className} h-8 w-24 bg-zinc-700 text-sm text-zinc-50`}
+            onClick={() => toggleVisiblity(false)}
+          >
             Cancel
           </button>
         </div>
