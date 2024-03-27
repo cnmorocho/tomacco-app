@@ -35,7 +35,7 @@ export const countdownSlice = createSlice({
       return {
         ...state,
         currentTime: BREAK_TIME,
-        currentInterval: state.currentInterval,
+        currentInterval: state.currentInterval + 1,
         status: 'Short Break',
       };
     },
@@ -43,7 +43,7 @@ export const countdownSlice = createSlice({
       return {
         ...state,
         currentTime: FOCUS_TIME,
-        currentInterval: state.currentInterval + 1,
+        currentInterval: state.currentInterval,
         status: 'Focus',
       };
     },
@@ -51,7 +51,7 @@ export const countdownSlice = createSlice({
       return {
         ...state,
         currentTime: LONG_BREAK_TIME,
-        currentInterval: state.currentInterval,
+        currentInterval: state.currentInterval + 1,
         status: 'Long Break',
       };
     },
