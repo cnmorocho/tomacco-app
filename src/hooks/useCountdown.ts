@@ -33,19 +33,20 @@ export default function useCountdown() {
     const interval = setInterval(() => {
       if (isTimeToLongBreak()) {
         createNotification(notificationBreak.title, notificationBreak.message);
+        dispatch(addTimestamp(getTimestampFromDate(new Date())));
         dispatch(startLongbreak());
         return;
       }
 
       if (isTimeForBreak()) {
         createNotification(notificationBreak.title, notificationBreak.message);
+        dispatch(addTimestamp(getTimestampFromDate(new Date())));
         dispatch(startShortbreak());
         return;
       }
 
       if (isTimeForFocus()) {
         createNotification(notificationFocus.title, notificationFocus.message);
-        dispatch(addTimestamp(getTimestampFromDate(new Date())));
         dispatch(startFocus());
         return;
       }
