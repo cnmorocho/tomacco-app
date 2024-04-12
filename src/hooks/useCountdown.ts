@@ -1,18 +1,37 @@
-import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { countdown, startFocus, startLongbreak, startShortbreak, pause, play } from "@/redux/slices/countdown";
-import { addTimestamp } from "@/redux/slices/stats";
-import { Status } from "@/types";
-import { createNotification, getTimestampFromDate } from "@/utils/functions";
-import { notificationAskForPermission, notificationBreak, notificationFocus } from "@/utils/functions/texts";
-import { useEffect } from "react";
+/* eslint-disable @typescript-eslint/no-confusing-void-expression */
+/* eslint-disable @typescript-eslint/no-floating-promises */
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import {
+  countdown,
+  startFocus,
+  startLongbreak,
+  startShortbreak,
+  pause,
+  play,
+} from '@/redux/slices/countdown';
+import { addTimestamp } from '@/redux/slices/stats';
+import type { Status } from '@/types';
+import { createNotification, getTimestampFromDate } from '@/utils/functions';
+import {
+  notificationAskForPermission,
+  notificationBreak,
+  notificationFocus,
+} from '@/utils/functions/texts';
+import { useEffect } from 'react';
 
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export default function useCountdown() {
   const { currentTime, currentInterval, isRunning, status } = useAppSelector(
     (state) => state.countdown
   );
   const dispatch = useAppDispatch();
-  const pauseCountdown = () => dispatch(pause());
-  const playCountdown = () => dispatch(play());
+  const pauseCountdown = (): void => {
+    dispatch(pause());
+  };
+  const playCountdown = (): void => {
+    dispatch(play());
+  };
 
   const isStatusDone = ($status: Status): boolean =>
     isTimeZero() && status === $status;
@@ -54,18 +73,35 @@ export default function useCountdown() {
       dispatch(countdown());
     }, 1000);
 
-    return () => clearInterval(interval);
-  }, [currentTime, isRunning, isTimeForBreak, isTimeForFocus, isTimeToLongBreak, dispatch]);
+    return () => {
+      clearInterval(interval);
+    };
+  }, [
+    currentTime,
+    isRunning,
+    isTimeForBreak,
+    isTimeForFocus,
+    isTimeToLongBreak,
+    dispatch,
+  ]);
 
   useEffect(() => {
-    if (Notification.permission === 'granted') return;
-    else
-      Notification.requestPermission().then(
-        (res) =>
-          res === 'granted' &&
-          createNotification(notificationAskForPermission.title, notificationAskForPermission.message)
-      );
+    Notification.requestPermission().then(
+      (res) =>
+        res === 'granted' &&
+        createNotification(
+          notificationAskForPermission.title,
+          notificationAskForPermission.message
+        )
+    );
   }, []);
 
-  return {currentTime, currentInterval, isRunning, status, pause: pauseCountdown, play: playCountdown};
+  return {
+    currentTime,
+    currentInterval,
+    isRunning,
+    status,
+    pause: pauseCountdown,
+    play: playCountdown,
+  };
 }

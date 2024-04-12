@@ -1,4 +1,4 @@
-import { Stats } from '@/types';
+import type { Stats } from '@/types';
 
 export function getTimestampFromDate(date: Date): number {
   return date.getTime();
@@ -32,7 +32,7 @@ export function timestampIsInDay(timestamp: number, day: Date): boolean {
   return timestamp >= startOfDay && timestamp <= endOfDay;
 }
 
-export function getTimestampOfMonth(timestamps: Array<number>): Array<number> {
+export function getTimestampOfMonth(timestamps: number[]): number[] {
   const year = new Date().getFullYear();
   const month = new Date().getMonth();
   return timestamps.filter((timestamp: number) =>
@@ -40,7 +40,7 @@ export function getTimestampOfMonth(timestamps: Array<number>): Array<number> {
   );
 }
 
-export function generateMonthlyStats(timestamps: Array<number>) {
+export function generateMonthlyStats(timestamps: number[]): Stats[] {
   const today = new Date();
   const daysInMonth = new Date(
     today.getFullYear(),
@@ -50,7 +50,7 @@ export function generateMonthlyStats(timestamps: Array<number>) {
   const stats = [];
 
   for (let i = 1; i <= daysInMonth; i++) {
-    let date = new Date(today.getFullYear(), today.getMonth(), i);
+    const date = new Date(today.getFullYear(), today.getMonth(), i);
     const numberOfTimestampsOfToday = getTimestampsOfDate(
       timestamps,
       date
@@ -76,7 +76,7 @@ export function timestampIsInWeek(
   );
 }
 
-export function getTimestampsOfWeek(timestamps: Array<number>): Array<number> {
+export function getTimestampsOfWeek(timestamps: number[]): number[] {
   const today = new Date();
   const startOfWeek = new Date(
     today.getFullYear(),
@@ -90,7 +90,7 @@ export function getTimestampsOfWeek(timestamps: Array<number>): Array<number> {
   );
 }
 
-export function generateWeeklyStats(timestamps: Array<number>): Array<Stats> {
+export function generateWeeklyStats(timestamps: number[]): Stats[] {
   const today = new Date();
   const startOfWeek = new Date(
     today.getFullYear(),
@@ -100,7 +100,7 @@ export function generateWeeklyStats(timestamps: Array<number>): Array<Stats> {
   const stats = [];
 
   for (let i = 0; i < 7; i++) {
-    let date = new Date(
+    const date = new Date(
       startOfWeek.getFullYear(),
       startOfWeek.getMonth(),
       startOfWeek.getDate() + i
@@ -120,14 +120,14 @@ export function getWeekdayNameOfIsoDate(isoDate: string): string {
 }
 
 export function getTimestampsOfDate(
-  timestamps: Array<number>,
+  timestamps: number[],
   date: Date
-): Array<number> {
+): number[] {
   return timestamps.filter((timestamp: number) =>
     timestampIsInDay(timestamp, date)
   );
 }
 
-export function getTimestampsOfToday(timestamps: Array<number>): Array<number> {
+export function getTimestampsOfToday(timestamps: number[]): number[] {
   return getTimestampsOfDate(timestamps, new Date());
 }

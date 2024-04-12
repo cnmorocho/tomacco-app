@@ -7,7 +7,10 @@ type CountdownProps = {
   currentInterval: number;
 };
 
-const Countdown = ({ minutes, seconds }: CountdownProps) => {
+export default function Countdown({
+  minutes,
+  seconds,
+}: CountdownProps): React.ReactElement {
   return (
     <div
       className={`${roboto.className} flex flex-col items-center gap-6 text-zinc-700`}
@@ -17,6 +20,4 @@ const Countdown = ({ minutes, seconds }: CountdownProps) => {
       </p>
     </div>
   );
-};
-
-export default Countdown;
+}

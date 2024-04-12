@@ -6,8 +6,11 @@ type CountdownButtonProps = {
   action: () => void;
 };
 
-const CountdownButton = ({ text, action }: CountdownButtonProps) => {
-  async function handleAction() {
+export default function CountdownButton({
+  text,
+  action,
+}: CountdownButtonProps): React.ReactElement {
+  function handleAction(): void {
     action();
   }
 
@@ -22,6 +25,4 @@ const CountdownButton = ({ text, action }: CountdownButtonProps) => {
       {text}
     </button>
   );
-};
-
-export default CountdownButton;
+}

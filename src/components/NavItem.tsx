@@ -1,3 +1,4 @@
+import React from 'react';
 import Link from 'next/link';
 
 type Props = {
@@ -7,7 +8,12 @@ type Props = {
   isActive: boolean;
 };
 
-export default function NavItem({ href, icon, label, isActive }: Props) {
+export default function NavItem({
+  href,
+  icon,
+  label,
+  isActive,
+}: Props): React.ReactElement {
   return (
     <div>
       <div

@@ -1,5 +1,5 @@
 'use client';
-
+import React from 'react';
 import { Provider } from 'react-redux';
 import { store } from '../store';
 import { PersistGate } from 'redux-persist/integration/react';
@@ -8,7 +8,9 @@ import * as ReduxStore from '@/redux/store';
 
 type Props = { children: React.ReactNode };
 
-const GlobalProvider = ({ children }: Props) => {
+export default function GlobalProvider({
+  children,
+}: Props): React.ReactElement {
   const persistor = persistStore(ReduxStore.store);
 
   return (
@@ -16,6 +18,4 @@ const GlobalProvider = ({ children }: Props) => {
       <Provider store={store}>{children}</Provider>
     </PersistGate>
   );
-};
-
-export default GlobalProvider;
+}

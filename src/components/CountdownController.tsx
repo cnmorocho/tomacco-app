@@ -1,28 +1,30 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 'use client';
 
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import Countdown from './Countdown';
 import CountdownButton from './CountdownButton';
 import { formatCountdown, getBarColor } from '@/utils/functions';
 import useCountdown from '@/hooks/useCountdown';
 import { roboto } from '@/fonts';
 
-const CountdownController = () => {
+export default function CountdownController(): React.ReactElement {
   const { currentTime, currentInterval, isRunning, pause, play, status } =
     useCountdown();
   const totalTime = useMemo(() => currentTime, [status]);
   const barColor = useMemo(() => getBarColor(status), [status]);
-  const percentageCompleted = useMemo(() => currentTime * (200 / totalTime), [currentTime])
-  console.log(barColor);
-  console.log(percentageCompleted);
+  const percentageCompleted = useMemo(
+    () => currentTime * (200 / totalTime),
+    [currentTime]
+  );
 
-  const ConditionalButton = (): JSX.Element => {
+  function ConditionalButton(): React.ReactElement {
     return isRunning ? (
       <CountdownButton text='PAUSE' action={pause} />
     ) : (
       <CountdownButton text='START' action={play} />
     );
-  };
+  }
 
   const [minutes, seconds] = formatCountdown(currentTime);
   document.title = `Tomacco - ${minutes}:${seconds}`;
@@ -36,7 +38,10 @@ const CountdownController = () => {
         <div className='h-2 w-[200px] overflow-hidden rounded border bg-zinc-50'>
           <div
             className={`relative h-3 w-[200px] `}
-            style={{ right: `${percentageCompleted}px`, backgroundColor: `${barColor}`}}
+            style={{
+              right: `${percentageCompleted}px`,
+              backgroundColor: `${barColor}`,
+            }}
           ></div>
         </div>
       </div>
@@ -46,11 +51,8 @@ const CountdownController = () => {
           seconds={seconds}
           currentInterval={currentInterval}
         />
-
         <ConditionalButton />
       </div>
     </section>
   );
-};
-
-export default CountdownController;
+}

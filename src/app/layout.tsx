@@ -1,3 +1,4 @@
+import React from 'react';
 import type { Metadata } from 'next';
 import CountdownProvider from '@/redux/providers/CountdownProvider';
 import './globals.css';
@@ -13,7 +14,7 @@ export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
-}) {
+}): React.ReactElement {
   return (
     <html lang='en'>
       <body>

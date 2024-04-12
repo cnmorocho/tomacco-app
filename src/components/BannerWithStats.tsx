@@ -1,3 +1,4 @@
+import React from 'react';
 import { useAppSelector } from '@/redux/hooks';
 import {
   getTimestampOfMonth,
@@ -5,8 +6,8 @@ import {
   getTimestampsOfWeek,
 } from '@/utils/functions';
 
-export default function BannerWithStats() {
-  const stats: Array<number> = useAppSelector((state) => state.stats);
+export default function BannerWithStats(): React.ReactElement {
+  const stats: number[] = useAppSelector((state) => state.stats);
   const totalProgress = stats.length;
   const todayProgress = getTimestampsOfToday(stats).length;
   const thisWeekProgress = getTimestampsOfWeek(stats).length;
@@ -25,7 +26,13 @@ export default function BannerWithStats() {
   );
 }
 
-function BannerStatsItem({ value, label }: { value: number; label: string }) {
+function BannerStatsItem({
+  value,
+  label,
+}: {
+  value: number;
+  label: string;
+}): React.ReactElement {
   return (
     <div className='flex flex-col items-center justify-center'>
       <p className='text-md font-medium'>{label}</p>

@@ -23,7 +23,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
   countdown: countdownReducer,
   stats: statsReducer,
-  tasks: tasksReducer
+  tasks: tasksReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
