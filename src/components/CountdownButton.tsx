@@ -2,24 +2,27 @@ import React from 'react';
 import { roboto } from '@/fonts';
 
 type CountdownButtonProps = {
-  text: string;
-  action: () => void;
+    text: 'PAUSE' | 'START';
+    action: () => void;
 };
 
-const CountdownButton = ({ text, action }: CountdownButtonProps) => {
-  async function handleAction() {
-    action();
-  }
+export default function CountdownButton({
+    text,
+    action,
+}: CountdownButtonProps): React.ReactElement {
+    function handleAction(): void {
+        action();
+    }
 
-  return (
-    <button
-      type='button'
-      className={`${roboto.className} h-12 w-28 rounded-lg bg-zinc-800 text-xl font-medium text-zinc-50 hover:bg-zinc-700`}
-      onClick={handleAction}
-    >
-      {text}
-    </button>
-  );
-};
+    const isPaused = text === 'PAUSE';
 
-export default CountdownButton;
+    return (
+        <button
+            type="button"
+            className={`${roboto.className} h-12 w-28 rounded-lg border  bg-zinc-100 text-xl font-bold tracking-wider text-zinc-600 ${isPaused ? 'bg-zinc-200 shadow-inner' : ''} hover:bg-zinc-200`}
+            onClick={handleAction}
+        >
+            {text}
+        </button>
+    );
+}

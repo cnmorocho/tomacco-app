@@ -1,43 +1,48 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import userReducer from './slices/user';
 import countdownReducer from './slices/countdown';
 import statsReducer from './slices/stats';
+import tasksReducer from './slices/tasks';
 import {
-  persistReducer,
-  FLUSH,
-  REHYDRATE,
-  PAUSE,
-  PERSIST,
-  PURGE,
-  REGISTER,
+    persistReducer,
+    FLUSH,
+    REHYDRATE,
+    PAUSE,
+    PERSIST,
+    PURGE,
+    REGISTER,
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import locationReducer from './slices/location';
 
 const persistConfig = {
-  key: 'root',
-  storage,
-  version: 1,
-  whitelist: ['user', 'location', 'stats'],
+    key: 'root',
+    storage,
+    version: 1,
+    whitelist: ['stats', 'tasks'],
 };
 
 const rootReducer = combineReducers({
-  user: userReducer,
-  countdown: countdownReducer,
-  location: locationReducer,
-  stats: statsReducer,
+    countdown: countdownReducer,
+    stats: statsReducer,
+    tasks: tasksReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
-  reducer: persistedReducer,
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
-      serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-      },
-    }),
+    reducer: persistedReducer,
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware({
+            serializableCheck: {
+                ignoredActions: [
+                    FLUSH,
+                    REHYDRATE,
+                    PAUSE,
+                    PERSIST,
+                    PURGE,
+                    REGISTER,
+                ],
+            },
+        }),
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
