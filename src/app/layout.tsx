@@ -6,29 +6,29 @@ import Navbar from '@/components/Navbar';
 import { roboto } from '@/fonts';
 
 export const metadata: Metadata = {
-  title: 'Tomacco',
-  description: 'Tomacco App',
+    title: 'Tomacco',
+    description: 'Tomacco App',
 };
 
 export default function RootLayout({
-  children,
+    children,
 }: {
-  children: React.ReactNode;
+    children: React.ReactNode;
 }): React.ReactElement {
-  return (
-    <html lang='en'>
-      <body>
-        <CountdownProvider>
-          <div
-            className={`${roboto.className} m-0 flex h-screen w-full flex-col items-center bg-zinc-50 p-0`}
-          >
-            <Navbar />
-            <div className='flex max-w-[600px] grow lg:w-[500px]'>
-              {children}
-            </div>
-          </div>
-        </CountdownProvider>
-      </body>
-    </html>
-  );
+    return (
+        <html lang="en">
+            <body>
+                <CountdownProvider>
+                    <div
+                        className={`${roboto.className} m-0 flex h-screen w-full flex-col items-center bg-zinc-50 p-0`}
+                    >
+                        <Navbar />
+                        <div className="flex max-w-[600px] grow lg:w-[500px]">
+                            {children}
+                        </div>
+                    </div>
+                </CountdownProvider>
+            </body>
+        </html>
+    );
 }

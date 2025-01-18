@@ -9,13 +9,13 @@ import * as ReduxStore from '@/redux/store';
 type Props = { children: React.ReactNode };
 
 export default function GlobalProvider({
-  children,
+    children,
 }: Props): React.ReactElement {
-  const persistor = persistStore(ReduxStore.store);
+    const persistor = persistStore(ReduxStore.store);
 
-  return (
-    <PersistGate persistor={persistor}>
-      <Provider store={store}>{children}</Provider>
-    </PersistGate>
-  );
+    return (
+        <PersistGate persistor={persistor}>
+            <Provider store={store}>{children}</Provider>
+        </PersistGate>
+    );
 }
