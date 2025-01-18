@@ -14,7 +14,6 @@ import { addTimestamp } from '@/redux/slices/stats';
 import type { Status } from '@/types';
 import { createNotification, getTimestampFromDate } from '@/utils/functions';
 import {
-    notificationAskForPermission,
     notificationBreak,
     notificationFocus,
 } from '@/utils/functions/texts';
@@ -25,6 +24,7 @@ export default function useCountdown() {
     const { currentTime, currentInterval, isRunning, status } = useAppSelector(
         (state) => state.countdown
     );
+
     const dispatch = useAppDispatch();
     const pauseCountdown = (): void => {
         dispatch(pause());
@@ -93,17 +93,6 @@ export default function useCountdown() {
         isTimeToLongBreak,
         dispatch,
     ]);
-
-    useEffect(() => {
-        Notification.requestPermission().then(
-            (res) =>
-                res === 'granted' &&
-                createNotification(
-                    notificationAskForPermission.title,
-                    notificationAskForPermission.message
-                )
-        );
-    }, []);
 
     return {
         currentTime,

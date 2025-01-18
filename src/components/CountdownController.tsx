@@ -1,14 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 'use client';
-
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 import Countdown from './Countdown';
 import CountdownButton from './CountdownButton';
-import { formatCountdown, getBarColor } from '@/utils/functions';
+import { createNotification, formatCountdown, getBarColor } from '@/utils/functions';
 import useCountdown from '@/hooks/useCountdown';
 import { roboto } from '@/fonts';
+import { notificationAskForPermission } from '@/utils/functions/texts';
 
 export default function CountdownController(): React.ReactElement {
+    const notificationTriggeredRef = useRef(false);
     const { currentTime, currentInterval, isRunning, pause, play, status } =
         useCountdown();
     const totalTime = useMemo(() => currentTime, [status]);
@@ -17,6 +18,21 @@ export default function CountdownController(): React.ReactElement {
         () => currentTime * (200 / totalTime),
         [currentTime]
     );
+
+    useEffect(() => {
+        if (Notification.permission === 'default' && !notificationTriggeredRef.current) {
+            
+            Notification.requestPermission().then((res) => {
+                if (res === 'granted') {
+                    createNotification(
+                        notificationAskForPermission.title,
+                        notificationAskForPermission.message
+                    );
+                    notificationTriggeredRef.current = true;
+                }
+            }).catch((err) => { console.error(err); });
+        }
+    }, []);
 
     function ConditionalButton(): React.ReactElement {
         return isRunning ? (
