@@ -8,7 +8,7 @@ export default function Divider({
     return (
         <>
             <p className="text-sm font-medium">{title}</p>
-            <hr className="pb-1" />
+            <hr className="pb-1 border-zinc-300" />
         </>
     );
 }

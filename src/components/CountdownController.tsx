@@ -46,12 +46,12 @@ export default function CountdownController(): React.ReactElement {
     document.title = `Tomacco - ${minutes}:${seconds}`;
 
     return (
-        <section className="flex h-[300px] w-[500px] flex-col items-center rounded-xl border bg-zinc-100 py-5 shadow-lg">
+        <section className="flex h-[300px] w-[500px] flex-col items-center rounded-xl border border-zinc-300 bg-slate-100 py-5 shadow-sm">
             <div className="mb-10 flex flex-col items-center">
                 <p className={`${roboto.className} text-sm`}>
                     {currentInterval} pomodoros
                 </p>
-                <div className="h-2 w-[200px] overflow-hidden rounded border bg-zinc-50">
+                <div className="h-2 w-[200px] overflow-hidden rounded border bg-zinc-50 border-zinc-300">
                     <div
                         className={`relative h-3 w-[200px] `}
                         style={{

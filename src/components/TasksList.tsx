@@ -24,7 +24,7 @@ export default function TasksList(): React.ReactElement {
     const dispatch = useAppDispatch();
 
     return (
-        <div className="flex flex-col rounded-xl border bg-zinc-100 p-4 py-5 shadow-lg">
+        <div className="flex flex-col rounded-xl border border-zinc-300 bg-zinc-100 p-4 py-5 shadow-sm">
             <div className="flex items-center justify-between">
                 <p className="text-2xl font-extrabold text-zinc-700">Tasks</p>
             </div>

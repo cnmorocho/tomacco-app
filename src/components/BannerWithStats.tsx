@@ -17,7 +17,7 @@ export default function BannerWithStats(): React.ReactElement {
     });
 
     return (
-        <div className="grid h-24 grid-cols-4 divide-x">
+        <div className="grid h-24 grid-cols-4 divide-x divide-zinc-300">
             <BannerStatsItem value={todayProgress} label="Today" />
             <BannerStatsItem value={thisWeekProgress} label="This week" />
             <BannerStatsItem value={thisMonthProgress} label={`On ${month}`} />
