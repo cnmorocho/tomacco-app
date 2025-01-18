@@ -9,7 +9,7 @@ import StatsModal from './StatsModal';
 function Navbar(): React.ReactElement {
     return (
         <div
-            className={`${roboto.className} flex h-10 w-[500px] flex-row items-center justify-between rounded-b-lg border bg-zinc-100 px-1 text-sm font-normal shadow-sm`}
+            className={`${roboto.className} flex h-10 w-[500px] flex-row items-center justify-between rounded-b-lg border border-zinc-300 bg-zinc-100 px-1 text-sm font-normal shadow-sm`}
         >
             <NavName />
             <div className="flex flex-row gap-1">

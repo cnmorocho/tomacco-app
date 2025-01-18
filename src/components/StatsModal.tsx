@@ -31,12 +31,12 @@ export default function StatsModal({
             onClick={closeModal}
         >
             <div
-                className={`${roboto.className} relative top-12 flex h-[700px] w-[600px] flex-col gap-2 rounded-md border bg-zinc-100 p-4 shadow-xl`}
+                className={`${roboto.className} relative top-12 flex h-[700px] w-[600px] flex-col gap-2 rounded-md border border-zinc-300 bg-zinc-100 p-4 shadow-xl`}
                 onClick={(e) => {
                     e.stopPropagation();
                 }}
             >
-                <div className="mb-4 flex items-end justify-between border-b p-2 text-zinc-800">
+                <div className="mb-4 flex items-end justify-between border-b border-zinc-300 p-2 text-zinc-800">
                     <p className="text-3xl font-extrabold">Report</p>
                     <p className="text-lg font-bold text-zinc-500">{date}</p>
                 </div>

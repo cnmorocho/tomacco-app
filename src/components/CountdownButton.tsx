@@ -19,7 +19,7 @@ export default function CountdownButton({
     return (
         <button
             type="button"
-            className={`${roboto.className} h-12 w-28 rounded-lg border  bg-zinc-100 text-xl font-bold tracking-wider text-zinc-600 ${isPaused ? 'bg-zinc-200 shadow-inner' : ''} hover:bg-zinc-200`}
+            className={`${roboto.className} h-12 w-28 rounded-lg border border-zinc-300 bg-zinc-100 text-xl font-bold tracking-wider text-zinc-600 ${isPaused ? 'shadow-inner bg-zinc-200' : ''} hover:bg-zinc-200`}
             onClick={handleAction}
         >
             {text}
