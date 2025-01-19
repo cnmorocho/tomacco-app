@@ -1,44 +1,98 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
-type ActionType = {
-    type: string;
-    payload: Task | number;
-};
-
-export type Task = {
+export interface Task {
     id: number;
     title: string;
-    pomodoros: number;
-    isDone: boolean;
+    pomodorosRemaining: number;
+    pomodorosCompleted: number;
+    isCompleted: boolean;
+}
+
+export interface TaskList {
+    todo: Task[];
+    completed: Task[];
+}
+
+type StateType = TaskList;
+
+const initialState: StateType = {
+    todo: [],
+    completed: [],
 };
-
-type StateType = Task[];
-
-const initialState: StateType = [];
 
 export const tasksSlice = createSlice({
     name: 'tasks',
     initialState,
     reducers: {
-        createTask: (state: StateType, action: ActionType) => {
-            return [...state, action.payload as Task];
+        createTask: (state: StateType, action: PayloadAction<Task>) => {
+            return { ...state, todo: [...state.todo, action.payload] };
         },
-        switchIsDoneStatus: (state: StateType, action: ActionType) => {
-            const tasks: Task[] = state.map((task) => {
-                if (task.id === (action.payload as number)) {
-                    return { ...task, isDone: !task.isDone };
+        removeTask: (state: StateType, action: PayloadAction<number>) => {
+            return {
+                todo: state.todo.filter((task) => task.id !== action.payload),
+                completed: state.completed.filter((task) => task.id !== action.payload),
+            };
+        },
+        markAsCompleted: (state: StateType, action: PayloadAction<number>) => {
+            const task = state.todo.find((task) => task.id === action.payload);
+            if (task !== undefined) {
+                return {
+                    todo: state.todo.filter(
+                        (task) => task.id !== action.payload
+                    ),
+                    completed: [
+                        ...state.completed,
+                        { ...task, isCompleted: true, pomodorosRemaining: 0, pomodorosCompleted: task.pomodorosCompleted + 1 },
+                    ],
+                };
+            }
+            return state;
+        },
+        markAsTodo: (state: StateType, action: PayloadAction<number>) => {
+            const task = state.completed.find(
+                (task) => task.id === action.payload
+            );
+            if (task !== undefined) {
+                return {
+                    todo: [
+                        ...state.todo,
+                        { ...task, isCompleted: false, pomodorosRemaining: 1 },
+                    ],
+                    completed: state.completed.filter(
+                        (task) => task.id !== action.payload
+                    ),
+                };
+            }
+            return state;
+        },
+        refreshOrder: (state: StateType, action: PayloadAction<Task[]>) => {
+            return { ...state, todo: action.payload };
+        },
+        updatePomodorosCount: (
+            state: StateType,
+            action: PayloadAction<number>
+        ) => {
+            if (state.todo.length === 0) return state;
+            const tasks: Task[] = state.todo.map((task) => {
+                if (task.id === action.payload) {
+                    if (task.pomodorosRemaining === 1){
+                        return task
+                    } else {
+                        return { ...task, pomodorosRemaining: task.pomodorosRemaining - 1, pomodorosCompleted: task.pomodorosCompleted + 1};
+                    }
                 } else return task;
             });
-            return tasks;
-        },
-        removeTask: (state: StateType, action: ActionType) => {
-            return state.filter(
-                (task) => task.id !== (action.payload as number)
-            );
+            return { ...state, todo: tasks };
         },
     },
 });
 
-export const { createTask, switchIsDoneStatus, removeTask } =
-    tasksSlice.actions;
+export const {
+    createTask,
+    markAsCompleted,
+    markAsTodo,
+    removeTask,
+    refreshOrder,
+    updatePomodorosCount,
+} = tasksSlice.actions;
 export default tasksSlice.reducer;

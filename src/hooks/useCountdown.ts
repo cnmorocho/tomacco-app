@@ -13,10 +13,7 @@ import {
 import { addTimestamp } from '@/redux/slices/stats';
 import type { Status } from '@/types';
 import { createNotification, getTimestampFromDate } from '@/utils/functions';
-import {
-    notificationBreak,
-    notificationFocus,
-} from '@/utils/functions/texts';
+import { notificationBreak, notificationFocus } from '@/utils/functions/texts';
 import { useEffect } from 'react';
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
