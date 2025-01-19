@@ -5,95 +5,96 @@ import RepeatOneIcon from '@mui/icons-material/RepeatOne';
 import ClearIcon from '@mui/icons-material/Clear';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import type { ChangeEvent, KeyboardEvent } from 'react';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import type { Task } from '@/redux/slices/tasks';
 import {
     createTask,
+    incresePomodorosCompleted,
+    refreshOrder,
     removeTask,
-    switchIsDoneStatus,
 } from '@/redux/slices/tasks';
-import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
-import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+
 import { DeleteForever } from '@mui/icons-material';
 import SendIcon from '@mui/icons-material/Send';
+import { DndContext, closestCenter } from '@dnd-kit/core';
+import {
+    arrayMove,
+    SortableContext,
+    verticalListSortingStrategy,
+} from '@dnd-kit/sortable';
+import type { DragEndEvent } from '@dnd-kit/core';
+import { TaskItem } from './TaskItem';
 
 export default function TasksList(): React.ReactElement {
     const tasks = useAppSelector((state) => state.tasks);
+    const pomodoro = useAppSelector((state) => state.countdown);
     const dispatch = useAppDispatch();
 
+    function handleDragEnd(event: DragEndEvent): void {
+        const { active, over } = event;
+        const olderIndex = tasks.findIndex((task) => task.id === active.id);
+        const newIndex = tasks.findIndex((task) => task.id === over?.id);
+        const newTasks = arrayMove(tasks, olderIndex, newIndex);
+        dispatch(refreshOrder(newTasks));
+    }
+
+    useEffect(() => {
+        if (tasks.length > 0) {
+            const activeTask = tasks[0];
+            if (pomodoro.currentTime === 0 && pomodoro.status === 'Focus' && !activeTask.isDone) {
+                dispatch(incresePomodorosCompleted(activeTask.id));
+            }
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [
+        pomodoro.currentInterval,
+        pomodoro.currentTime,
+        pomodoro.status,
+    ]);
+
     return (
-        <div className="flex flex-col rounded-xl border border-zinc-300 bg-zinc-100 p-4 py-5 shadow-sm">
-            <div className="flex items-center justify-between">
-                <p className="text-2xl font-extrabold text-zinc-700">Tasks</p>
-            </div>
-            <hr className="pb-3" />
-            {tasks.length > 0 && (
-                <div className="mb-2 flex flex-col gap-2">
-                    {tasks.map((task, index) => (
-                        <div className="flex items-center gap-1" key={index}>
-                            <TaskItem task={task} key={task.id} />
-                            <button
-                                onClick={() => dispatch(removeTask(task.id))}
-                            >
-                                <DeleteForever
-                                    className="text-zinc-700"
-                                    sx={{ fontSize: '20px' }}
-                                />
-                            </button>
+        <DndContext
+            collisionDetection={closestCenter}
+            onDragEnd={handleDragEnd}
+        >
+            <div className="flex flex-col rounded-xl border border-zinc-300 bg-zinc-100 p-4 py-5 shadow-sm">
+                <div className="flex items-center justify-between">
+                    <p className="text-2xl font-extrabold text-zinc-700">
+                        Tasks
+                    </p>
+                </div>
+                <hr className="pb-3" />
+                <SortableContext
+                    items={tasks}
+                    strategy={verticalListSortingStrategy}
+                >
+                    {tasks.length > 0 && (
+                        <div className="mb-2 flex flex-col gap-2">
+                            {tasks.map((task, index) => (
+                                <div
+                                    className="flex items-center gap-1 max-w-full"
+                                    key={index}
+                                >
+                                    <TaskItem task={task} key={task.id} />
+                                    <button
+                                        onClick={() =>
+                                            dispatch(removeTask(task.id))
+                                        }
+                                    >
+                                        <DeleteForever
+                                            className="text-zinc-700"
+                                            sx={{ fontSize: '20px' }}
+                                        />
+                                    </button>
+                                </div>
+                            ))}
                         </div>
-                    ))}
-                </div>
-            )}
-            <AddTaskItem />
-        </div>
-    );
-}
-
-type TaskItemProps = {
-    task: Task;
-};
-
-function TaskItem({ task }: TaskItemProps): React.ReactElement {
-    const [isHoveringDoneCheckbox, setIsHoveringDoneCheckbox] = useState(false);
-    const dispatch = useAppDispatch();
-
-    return (
-        <div className="relative flex flex-1 items-center justify-between rounded-lg border border-zinc-300 bg-zinc-200 p-2">
-            <div className="flex gap-1">
-                <div
-                    className="flex"
-                    onMouseOver={() => {
-                        setIsHoveringDoneCheckbox(true);
-                    }}
-                    onMouseOut={() => {
-                        setIsHoveringDoneCheckbox(false);
-                    }}
-                    onClick={() => dispatch(switchIsDoneStatus(task.id))}
-                >
-                    {task.isDone || isHoveringDoneCheckbox ? (
-                        <CheckCircleOutlineIcon
-                            className="text-zinc-700"
-                            sx={{ fontSize: '20px' }}
-                        />
-                    ) : (
-                        <RadioButtonUncheckedIcon
-                            className="text-zinc-700"
-                            sx={{ fontSize: '20px' }}
-                        />
                     )}
-                </div>
-                <p
-                    className={`${task.isDone ? 'line-through' : 'no-underline'} text-sm `}
-                >
-                    {task.title}
-                </p>
+                </SortableContext>
+                <AddTaskItem />
             </div>
-            <p className="text-xs text-zinc-500">
-                Pomodoros estimated: {task.pomodoros}
-            </p>
-        </div>
+        </DndContext>
     );
 }
 
@@ -123,6 +124,7 @@ function AddTaskItem(): React.ReactElement {
                 id: new Date().getMilliseconds(),
                 title: taskTitle,
                 pomodoros: pomodorosEstimated,
+                pomodorosCompleted: 0,
                 isDone: false,
             })
         );
