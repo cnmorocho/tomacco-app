@@ -41,17 +41,15 @@ export default function TasksList(): React.ReactElement {
 
     useEffect(() => {
         if (tasks.length > 0) {
-            const activeTask = tasks[0];
-            if (pomodoro.currentTime === 0 && pomodoro.status === 'Focus' && !activeTask.isDone) {
-                dispatch(incresePomodorosCompleted(activeTask.id));
+            if (pomodoro.currentTime === 0 && pomodoro.status === 'Focus') {
+                const activeTask = tasks[0];
+                if (!activeTask.isDone) {
+                    dispatch(incresePomodorosCompleted(activeTask.id));
+                }
             }
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [
-        pomodoro.currentInterval,
-        pomodoro.currentTime,
-        pomodoro.status,
-    ]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [pomodoro.currentInterval, pomodoro.currentTime, pomodoro.status]);
 
     return (
         <DndContext

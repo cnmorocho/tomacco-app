@@ -27,7 +27,10 @@ export const tasksSlice = createSlice({
         incresePomodorosCompleted: (state: StateType, action: ActionType) => {
             const tasks: Task[] = state.map((task) => {
                 if (task.id === (action.payload as number)) {
-                    return { ...task, pomodorosCompleted: task.pomodorosCompleted + 1 };
+                    return {
+                        ...task,
+                        pomodorosCompleted: task.pomodorosCompleted + 1,
+                    };
                 } else return task;
             });
             return tasks;
