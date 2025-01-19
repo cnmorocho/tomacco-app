@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { useAppDispatch } from '@/redux/hooks';
-import { switchIsDoneStatus, type Task } from '@/redux/slices/tasks';
+import { markAsCompleted, markAsTodo, type Task } from '@/redux/slices/tasks';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 
-type TaskItemProps = {
+interface TaskItemProps {
     task: Task;
-};
+}
 
 export function TaskItem({ task }: TaskItemProps): React.ReactElement {
     const [isHoveringDoneCheckbox, setIsHoveringDoneCheckbox] = useState(false);
@@ -18,10 +18,21 @@ export function TaskItem({ task }: TaskItemProps): React.ReactElement {
             id: task.id,
         });
 
-    const style = {
-        transform: CSS.Transform.toString(transform),
-        transition,
-    };
+    const style = React.useMemo(
+        () => ({
+            transform: CSS.Transform.toString(transform),
+            transition,
+        }),
+        [transform, transition]
+    );
+
+    function handleTaskStatusChange(): void {
+        if (!task.isCompleted) {
+            dispatch(markAsCompleted(task.id));
+        } else {
+            dispatch(markAsTodo(task.id));
+        }
+    }
 
     return (
         <div
@@ -40,12 +51,14 @@ export function TaskItem({ task }: TaskItemProps): React.ReactElement {
                     onMouseOut={() => {
                         setIsHoveringDoneCheckbox(false);
                     }}
-                    onClick={() => dispatch(switchIsDoneStatus(task.id))}
+                    onClick={() => {
+                        handleTaskStatusChange();
+                    }}
                     onPointerDown={(e) => {
                         e.stopPropagation();
                     }}
                 >
-                    {task.isDone || isHoveringDoneCheckbox ? (
+                    {task.isCompleted || isHoveringDoneCheckbox ? (
                         <CheckCircleOutlineIcon
                             className="text-zinc-700"
                             sx={{ fontSize: '20px' }}
@@ -58,13 +71,13 @@ export function TaskItem({ task }: TaskItemProps): React.ReactElement {
                     )}
                 </div>
                 <p
-                    className={`${task.isDone ? 'line-through' : 'no-underline'} text-sm break-all overflow-hidden text-ellipsis`}
+                    className={`text-sm break-all overflow-hidden text-ellipsis`}
                 >
                     {task.title}
                 </p>
             </div>
             <p className="text-sm font-bold text-zinc-500 px-1">
-                {task.pomodorosCompleted}/{task.pomodoros}
+                {task.isCompleted ? task.pomodorosCompleted : task.pomodorosRemaining }
             </p>
         </div>
     );

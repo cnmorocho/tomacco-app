@@ -10,7 +10,8 @@ import type { ChangeEvent, KeyboardEvent } from 'react';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import {
     createTask,
-    incresePomodorosCompleted,
+    updatePomodorosCount,
+    markAsCompleted,
     refreshOrder,
     removeTask,
 } from '@/redux/slices/tasks';
@@ -25,6 +26,7 @@ import {
 } from '@dnd-kit/sortable';
 import type { DragEndEvent } from '@dnd-kit/core';
 import { TaskItem } from './TaskItem';
+import Divider from './Divider';
 
 export default function TasksList(): React.ReactElement {
     const tasks = useAppSelector((state) => state.tasks);
@@ -33,18 +35,32 @@ export default function TasksList(): React.ReactElement {
 
     function handleDragEnd(event: DragEndEvent): void {
         const { active, over } = event;
-        const olderIndex = tasks.findIndex((task) => task.id === active.id);
-        const newIndex = tasks.findIndex((task) => task.id === over?.id);
-        const newTasks = arrayMove(tasks, olderIndex, newIndex);
+
+        if (over == null || active.id === over.id) return;
+
+        const activeTask = tasks.todo.find((task) => task.id === active.id);
+        const overTask = tasks.todo.find((task) => task.id === over.id);
+
+        if (activeTask == null || overTask == null) {
+            return;
+        }
+
+        const olderIndex = tasks.todo.findIndex(
+            (task) => task.id === active.id
+        );
+        const newIndex = tasks.todo.findIndex((task) => task.id === over.id);
+        const newTasks = arrayMove(tasks.todo, olderIndex, newIndex);
         dispatch(refreshOrder(newTasks));
     }
 
     useEffect(() => {
-        if (tasks.length > 0) {
+        if (tasks.todo.length > 0) {
             if (pomodoro.currentTime === 0 && pomodoro.status === 'Focus') {
-                const activeTask = tasks[0];
-                if (!activeTask.isDone) {
-                    dispatch(incresePomodorosCompleted(activeTask.id));
+                const activeTask = tasks.todo[0];
+                if (activeTask.pomodorosRemaining === 1) {
+                    dispatch(markAsCompleted(activeTask.id));
+                } else {
+                    dispatch(updatePomodorosCount(activeTask.id));
                 }
             }
         }
@@ -62,14 +78,17 @@ export default function TasksList(): React.ReactElement {
                         Tasks
                     </p>
                 </div>
-                <hr className="pb-3" />
+                <hr className="pb-3 border-zinc-300" />
+                <div className='pb-2'>
+                    <AddTaskItem />
+                </div>
                 <SortableContext
-                    items={tasks}
+                    items={tasks.todo}
                     strategy={verticalListSortingStrategy}
                 >
-                    {tasks.length > 0 && (
+                    {tasks.todo.length > 0 && (
                         <div className="mb-2 flex flex-col gap-2">
-                            {tasks.map((task, index) => (
+                            {tasks.todo.map((task, index) => (
                                 <div
                                     className="flex items-center gap-1 max-w-full"
                                     key={index}
@@ -90,7 +109,29 @@ export default function TasksList(): React.ReactElement {
                         </div>
                     )}
                 </SortableContext>
-                <AddTaskItem />
+                {tasks.completed.length > 0 && (
+                    <div className="py-2 flex flex-col gap-2">
+                        <Divider title="Completed" />
+                        {tasks.completed.map((task, index) => (
+                            <div
+                                className="flex items-center gap-1 max-w-full"
+                                key={index}
+                            >
+                                <TaskItem task={task} key={task.id} />
+                                <button
+                                    onClick={() =>
+                                        dispatch(removeTask(task.id))
+                                    }
+                                >
+                                    <DeleteForever
+                                        className="text-zinc-700"
+                                        sx={{ fontSize: '20px' }}
+                                    />
+                                </button>
+                            </div>
+                        ))}
+                    </div>
+                )}
             </div>
         </DndContext>
     );
@@ -121,9 +162,9 @@ function AddTaskItem(): React.ReactElement {
             createTask({
                 id: new Date().getMilliseconds(),
                 title: taskTitle,
-                pomodoros: pomodorosEstimated,
+                pomodorosRemaining: pomodorosEstimated,
                 pomodorosCompleted: 0,
-                isDone: false,
+                isCompleted: false,
             })
         );
     }
