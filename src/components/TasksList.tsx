@@ -79,7 +79,7 @@ export default function TasksList(): React.ReactElement {
                     </p>
                 </div>
                 <hr className="pb-3 border-zinc-300" />
-                <div className='pb-2'>
+                <div className="pb-2">
                     <AddTaskItem />
                 </div>
                 <SortableContext

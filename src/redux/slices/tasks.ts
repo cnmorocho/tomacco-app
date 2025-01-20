@@ -30,7 +30,9 @@ export const tasksSlice = createSlice({
         removeTask: (state: StateType, action: PayloadAction<number>) => {
             return {
                 todo: state.todo.filter((task) => task.id !== action.payload),
-                completed: state.completed.filter((task) => task.id !== action.payload),
+                completed: state.completed.filter(
+                    (task) => task.id !== action.payload
+                ),
             };
         },
         markAsCompleted: (state: StateType, action: PayloadAction<number>) => {
@@ -42,7 +44,12 @@ export const tasksSlice = createSlice({
                     ),
                     completed: [
                         ...state.completed,
-                        { ...task, isCompleted: true, pomodorosRemaining: 0, pomodorosCompleted: task.pomodorosCompleted + 1 },
+                        {
+                            ...task,
+                            isCompleted: true,
+                            pomodorosRemaining: 0,
+                            pomodorosCompleted: task.pomodorosCompleted + 1,
+                        },
                     ],
                 };
             }
@@ -75,10 +82,14 @@ export const tasksSlice = createSlice({
             if (state.todo.length === 0) return state;
             const tasks: Task[] = state.todo.map((task) => {
                 if (task.id === action.payload) {
-                    if (task.pomodorosRemaining === 1){
-                        return task
+                    if (task.pomodorosRemaining === 1) {
+                        return task;
                     } else {
-                        return { ...task, pomodorosRemaining: task.pomodorosRemaining - 1, pomodorosCompleted: task.pomodorosCompleted + 1};
+                        return {
+                            ...task,
+                            pomodorosRemaining: task.pomodorosRemaining - 1,
+                            pomodorosCompleted: task.pomodorosCompleted + 1,
+                        };
                     }
                 } else return task;
             });

@@ -77,7 +77,9 @@ export function TaskItem({ task }: TaskItemProps): React.ReactElement {
                 </p>
             </div>
             <p className="text-sm font-bold text-zinc-500 px-1">
-                {task.isCompleted ? task.pomodorosCompleted : task.pomodorosRemaining }
+                {task.isCompleted
+                    ? task.pomodorosCompleted
+                    : task.pomodorosRemaining}
             </p>
         </div>
     );
