@@ -5,6 +5,8 @@ import { roboto } from '@/fonts';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import AlarmOnIcon from '@mui/icons-material/AlarmOn';
 import StatsModal from './StatsModal';
+import SettingsRoundedIcon from '@mui/icons-material/SettingsRounded';
+import SettingsModal from './SettingsModal';
 
 function Navbar(): React.ReactElement {
     return (
@@ -14,6 +16,7 @@ function Navbar(): React.ReactElement {
             <NavName />
             <div className="flex flex-row gap-1">
                 <NavStats />
+                <NavSettings />
             </div>
         </div>
     );
@@ -47,6 +50,27 @@ function NavStats(): React.ReactElement {
             <StatsModal
                 isVisible={showStatsModal}
                 toggleVisiblity={setShowStatsModal}
+            />
+        </div>
+    );
+}
+
+function NavSettings(): React.ReactElement {
+    const [showSettingsModal, setShowSettingsModal] = useState(false);
+
+    return (
+        <div>
+            <div className="flex h-full items-center gap-1 rounded px-2 py-1 font-medium text-zinc-600 hover:cursor-pointer hover:bg-zinc-200 active:bg-zinc-300"
+                onClick={() => {
+                    setShowSettingsModal(true);
+                }}
+            >
+                <SettingsRoundedIcon fontSize="inherit" sx={{ fontSize: 15 }} />
+                <p>Settings</p>
+            </div>
+            <SettingsModal
+                isVisible={showSettingsModal}
+                toggleVisiblity={setShowSettingsModal}
             />
         </div>
     );

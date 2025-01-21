@@ -31,7 +31,7 @@ export default function StatsModal({
             onClick={closeModal}
         >
             <div
-                className={`${roboto.className} relative top-12 flex h-[700px] w-[600px] flex-col gap-2 rounded-md border border-zinc-300 bg-zinc-100 p-4 shadow-xl`}
+                className={`${roboto.className} relative top-12 flex h-[700px] w-[500px] flex-col gap-2 rounded-md border border-zinc-300 bg-zinc-100 p-4 shadow-xl`}
                 onClick={(e) => {
                     e.stopPropagation();
                 }}
