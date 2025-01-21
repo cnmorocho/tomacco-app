@@ -37,7 +37,7 @@ export default function StatsModal({
                 }}
             >
                 <div className="mb-4 flex items-end justify-between border-b border-zinc-300 p-2 text-zinc-800">
-                    <p className="text-3xl font-extrabold">Report</p>
+                    <p className="text-xl font-extrabold">Report</p>
                     <p className="text-lg font-bold text-zinc-500">{date}</p>
                 </div>
                 <BannerWithStats />

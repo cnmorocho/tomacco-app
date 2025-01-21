@@ -28,28 +28,28 @@ export default function SettingsModal({
                 }}
             >
                 <div className="mb-1 flex items-end justify-between border-b border-zinc-300 p-2 text-zinc-800">
-                    <p className="text-3xl font-extrabold">Settings</p>
+                    <p className="text-xl font-extrabold">Settings</p>
                 </div>
                 <div className="flex-1 px-2 overflow-y-auto">
-                    <p className="text-lg font-medium">Timer</p>
+                    <p className="text-lg font-medium pb-1">Timer</p>
                     <div className="pb-2">
-                        <p className="text-md">Focus</p>
-                        <p className="text-xs">Minutes of the timer when on focus</p>
+                        <p className="text-xs font-bold">Focus</p>
+                        <p className="text-xs">Minutes for the focus timer.</p>
                         <input type="number" min={1} className="w-full p-1 border border-zinc-300 rounded" />
                     </div>
                     <div className="pb-2">
-                        <p className="text-md">Short break</p>
-                        <p className="text-xs">Minutes of the timer when on short break</p>
+                        <p className="text-xs font-bold">Short Break</p>
+                        <p className="text-xs">Minutes for the short break timer.</p>
                         <input type="number" min={1} className="w-full p-1 border border-zinc-300 rounded" />
                     </div>
                     <div className="pb-2">
-                        <p className="text-md">Long break</p>
-                        <p className="text-xs">Minutes of the timer when on long break</p>
+                        <p className="text-xs font-bold">Long Break</p>
+                        <p className="text-xs">Minutes for the long break timer.</p>
                         <input type="number" min={1} className="w-full p-1 border border-zinc-300 rounded" />
                     </div>
                     <div className="pb-2">
-                        <p className="text-sm">Long break interval</p>
-                        <p className="text-xs">Pomodoros until long break</p>
+                        <p className="text-xs font-bold">Long Break Interval</p>
+                        <p className="text-xs">Number of pomodoros until a long break.</p>
                         <input type="number" min={1} className="w-full p-1 border border-zinc-300 rounded" />
                     </div>
                 </div>
